@@ -1,0 +1,4593 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DiaMate ✦ Teman Diabetes Anda</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --purple:#1e40af;
+    --purple-light:#93c5fd;
+    --purple-dark:#1e3a8a;
+    --pink:#ec4899;
+    --pink-light:#f9a8d4;
+    --pink-dark:#be185d;
+    --cyan:#0ea5e9;
+    --cyan-light:#7dd3fc;
+    --lime:#a7f3d0;
+    --lime-dark:#059669;
+    --amber:#fbbf24;
+    --orange:#f59e0b;
+    --gold:#d4af37;
+    --gold-light:#e5c563;
+    --cream:#fafaf7;
+    --lavender:#eff6ff;
+    --sky:#e0ecff;
+    --ink:#0f172a;
+    --ink-soft:#475569;
+    --ink-dim:#64748b;
+    --white:#ffffff;
+
+    --font-heading: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+    --font-brand: 'Righteous', 'Playfair Display', sans-serif;
+    --font-body: 'DM Sans', 'Space Grotesk', sans-serif;
+    --font-accent: 'Cormorant Garamond', 'Playfair Display', serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; font-family: var(--font-body); }
+
+  h1, h2, h3, h4, h5, h6,
+  .hero h2,
+  .landing-left h1,
+  .card h3,
+  .card h4,
+  aside .widget h4,
+  footer h5,
+  .status-box small {
+    font-family: var(--font-heading);
+    letter-spacing: .3px;
+    font-weight: 500;
+  }
+
+  .brand h1,
+  .logo,
+  .auth-tabs button,
+  .btn, .btn-auth,
+  .cta-btn,
+  .jump-btn,
+  .hero .badge,
+  .landing-left .hero-badge,
+  .status-box .angka {
+    font-family: var(--font-brand);
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+
+  .breadcrumb, .alert-label, .input-hint, .error-msg,
+  nav.mainnav a, .copyright,
+  .cal-title, .checklist-date-label,
+  .form-group label {
+    font-family: var(--font-accent);
+    letter-spacing: .4px;
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+  body {
+    background:
+      radial-gradient(circle at 12% 8%, rgba(147,197,253,.42), transparent 48%),
+      radial-gradient(circle at 88% 15%, rgba(224,236,255,.65), transparent 55%),
+      radial-gradient(circle at 50% 92%, rgba(236,72,153,.12), transparent 60%),
+      radial-gradient(circle at 78% 62%, rgba(212,175,55,.08), transparent 55%),
+      linear-gradient(180deg, #fbfdff 0%, #f0f6ff 55%, #fdf4f8 100%);
+    background-attachment: fixed;
+    color:var(--ink); line-height:1.7; font-weight:400;
+    overflow-x: hidden; min-height:100vh;
+  }
+
+  .scroll-star {
+    position: fixed; pointer-events: none; z-index: 9998; font-size: 16px;
+    animation: starFall 2.4s cubic-bezier(.22,1,.36,1) forwards;
+    will-change: transform, opacity; user-select: none;
+  }
+  @keyframes starFall {
+    0%   { opacity: 0; transform: translateY(0) scale(.4) rotate(0deg); }
+    15%  { opacity: 1; transform: translateY(-10px) scale(1.1) rotate(45deg); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-110px) scale(.3) rotate(280deg); }
+  }
+
+  #cursor-glow {
+    position: fixed; top:0; left:0;
+    width: 360px; height: 360px; border-radius:50%;
+    background: radial-gradient(circle, rgba(30,64,175,.22) 0%, rgba(236,72,153,.12) 40%, transparent 70%);
+    transform: translate(-50%,-50%);
+    pointer-events: none; z-index: 900;
+    opacity: 0; transition: opacity .6s ease;
+    mix-blend-mode: multiply;
+    will-change: transform;
+  }
+  @media (hover: none) { #cursor-glow { display: none; } }
+
+  @keyframes fadeInUp { from {opacity:0; transform:translateY(28px);} to {opacity:1; transform:translateY(0);} }
+  @keyframes fadeInScale { from {opacity:0; transform:scale(.96); filter:blur(6px);} to {opacity:1; transform:scale(1); filter:blur(0);} }
+  @keyframes slideInLeft { from {opacity:0; transform:translateX(-32px);} to {opacity:1; transform:translateX(0);} }
+  @keyframes floatSlow {
+    0%,100% { transform:translateY(0) translateX(0); }
+    33% { transform:translateY(-14px) translateX(10px); }
+    66% { transform:translateY(8px) translateX(-8px); }
+  }
+  @keyframes pulseSoft {
+    0%,100% { box-shadow: 0 0 0 0 rgba(30,64,175,.42); }
+    50% { box-shadow: 0 0 0 16px rgba(30,64,175,0); }
+  }
+  @keyframes spinSlow { to { transform: rotate(360deg); } }
+  @keyframes ripple {
+    0% { transform: translate(-50%,-50%) scale(0); opacity:.55; }
+    100% { transform: translate(-50%,-50%) scale(20); opacity:0; }
+  }
+  @keyframes checkPop {
+    0% { transform: scale(.4) rotate(-15deg); opacity:0; }
+    60% { transform: scale(1.15) rotate(6deg); }
+    100% { transform: scale(1) rotate(0); opacity:1; }
+  }
+  @keyframes waveMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes dotBlink {
+    0%,100% { opacity:.3; transform:scale(.8); }
+    50% { opacity:1; transform:scale(1.2); }
+  }
+  @keyframes toastIn { from {opacity:0; transform:translate(-50%,40px);} to {opacity:1; transform:translate(-50%,0);} }
+  @keyframes toastOut { from {opacity:1; transform:translate(-50%,0);} to {opacity:0; transform:translate(-50%,40px);} }
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20%,60% { transform: translateX(-8px); }
+    40%,80% { transform: translateX(8px); }
+  }
+  @keyframes curtainUp {
+    0% { transform: translateY(0); opacity: 1; visibility: visible; }
+    100% { transform: translateY(-100%); opacity: 0; visibility: hidden; }
+  }
+  @keyframes targetPulse {
+    0% { box-shadow: 0 0 0 0 rgba(30,64,175,.5), 0 8px 28px rgba(30,58,138,.1); }
+    40% { box-shadow: 0 0 0 20px rgba(30,64,175,0), 0 22px 50px rgba(236,72,153,.35); }
+    100% { box-shadow: 0 0 0 0 rgba(30,64,175,0), 0 8px 28px rgba(30,58,138,.1); }
+  }
+  @keyframes arrowBounce {
+    0%,100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+  @keyframes rainbowShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes floatStar {
+    0%,100% { transform: translateY(0) rotate(0); opacity:.55; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity:1; }
+  }
+  @keyframes shimmerSweep {
+    0% { transform: translateX(-120%) skewX(-20deg); opacity:0; }
+    40% { opacity:.7; }
+    100% { transform: translateX(220%) skewX(-20deg); opacity:0; }
+  }
+  @keyframes softGlow {
+    0%,100% { box-shadow: 0 8px 22px rgba(30,64,175,.38), 0 0 0 3px rgba(236,72,153,.15); }
+    50% { box-shadow: 0 12px 30px rgba(30,64,175,.55), 0 0 0 6px rgba(236,72,153,.25); }
+  }
+  @keyframes discSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes noteFloat {
+    0%,100% { transform: translateY(0) rotate(-8deg); }
+    50%     { transform: translateY(-2px) rotate(-5deg); }
+  }
+  @keyframes slideGlowIn {
+    0% { opacity:0; transform: translateY(14px) scale(.92); filter:blur(4px); }
+    100% { opacity:1; transform: translateY(0) scale(1); filter:blur(0); }
+  }
+  @keyframes gentleTilt {
+    0%,100% { transform: rotate(-4deg) translateY(0); }
+    50% { transform: rotate(-2deg) translateY(-3px); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(45px) scale(.98);
+    transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1);
+    will-change: opacity, transform;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0) scale(1); }
+  .reveal-delay-1 { transition-delay: .08s; }
+  .reveal-delay-2 { transition-delay: .16s; }
+  .reveal-delay-3 { transition-delay: .24s; }
+
+  #music-toggle {
+    position: fixed; bottom: 24px; right: 24px; z-index: 998;
+    width: 64px; height: 64px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 25%, #ffffff 0%, #e8eefc 45%, #cfdcf5 100%);
+    border: none; cursor: pointer;
+    box-shadow:
+      0 10px 30px rgba(30,58,138,.35),
+      inset 0 0 0 2px rgba(255,255,255,.85),
+      inset 0 -4px 10px rgba(30,64,175,.18);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease;
+    color: #fff; padding: 0;
+  }
+  #music-toggle:hover {
+    transform: scale(1.1) translateY(-3px) rotate(4deg);
+    box-shadow:
+      0 16px 40px rgba(30,64,175,.45),
+      inset 0 0 0 2px rgba(255,255,255,.95),
+      inset 0 -4px 12px rgba(30,64,175,.22);
+  }
+  #music-toggle:active { transform: scale(.98); }
+
+  #music-toggle svg.cd-icon {
+    width: 52px; height: 52px; display: block;
+    animation: discSpin 6s linear infinite;
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,.12));
+    transition: opacity .4s ease;
+  }
+  #music-toggle.paused svg.cd-icon {
+    animation-play-state: paused;
+    opacity: .6;
+    filter: grayscale(.55) drop-shadow(0 1px 1px rgba(0,0,0,.12));
+  }
+  #music-toggle.paused::after {
+    content: "";
+    position: absolute;
+    width: 44px; height: 4px;
+    background: #1e40af;
+    transform: rotate(-45deg);
+    border-radius: 3px;
+    box-shadow: 0 0 0 2px rgba(255,255,255,.9), 0 0 8px rgba(30,64,175,.55);
+    pointer-events: none;
+  }
+  #music-toggle:not(.paused) svg.cd-icon .note-group {
+    animation: noteFloat 2.2s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  #landing {
+    position: fixed; inset: 0; z-index: 500;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px; overflow-y: auto;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(147,197,253,.5), transparent 45%),
+      radial-gradient(circle at 88% 82%, rgba(224,236,255,.65), transparent 55%),
+      radial-gradient(circle at 50% 100%, rgba(236,72,153,.13), transparent 60%),
+      linear-gradient(180deg, #fbfdff 0%, #eff5ff 100%);
+  }
+  #landing.hidden { animation: curtainUp .8s cubic-bezier(.86,0,.07,1) forwards; }
+
+  .landing-wrap {
+    width: 100%; max-width: 1080px;
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 40px; align-items: center;
+  }
+  @media (max-width: 860px) {
+    .landing-wrap { grid-template-columns: 1fr; gap: 28px; max-width: 460px; }
+    .landing-left { text-align: center; }
+    .landing-left .hero-badge, .landing-left h1 { margin-left: auto; margin-right: auto; }
+  }
+
+  .landing-left { animation: slideInLeft .8s ease both; }
+  .landing-left .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; padding: 8px 22px; border-radius: 30px;
+    font-size: .72rem; letter-spacing: 2.5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(30,58,138,.32);
+    animation: fadeInUp .8s ease both, pulseSoft 3s ease-in-out infinite;
+    margin-bottom: 22px;
+    position: relative; overflow: hidden;
+  }
+  .landing-left .hero-badge::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.5), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+    animation: shimmerSweep 4s ease-in-out infinite;
+  }
+
+  .landing-left h1 {
+    font-size: 2.9rem; line-height: 1.15;
+    color: var(--ink); margin-bottom: 16px;
+    animation: fadeInUp .9s ease .1s both;
+    font-family: var(--font-brand);
+    letter-spacing: 1px; font-weight: 400;
+  }
+  .landing-left h1 span {
+    font-style: italic;
+    font-family: var(--font-heading);
+    background: linear-gradient(120deg, var(--purple-dark), var(--cyan), var(--pink), var(--purple-dark));
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 6s ease infinite;
+    padding: 0 4px;
+  }
+  .landing-left p {
+    font-size: 1.05rem; color: var(--ink-soft); max-width: 500px;
+    margin-bottom: 12px; animation: fadeInUp 1s ease .2s both;
+    font-weight: 500; line-height: 1.7;
+  }
+  .landing-left .landing-sub {
+    font-size: .96rem; color: var(--ink-dim);
+    font-family: var(--font-accent); font-style: italic;
+    animation: fadeInUp 1.1s ease .3s both;
+    max-width: 460px;
+    margin-bottom: 0;
+  }
+
+  .auth-card {
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px; padding: 34px 30px;
+    box-shadow: 0 24px 60px rgba(30,58,138,.16), 0 0 0 1.5px rgba(30,64,175,.12);
+    position: relative; overflow: hidden;
+    animation: fadeInScale .8s ease .2s both;
+  }
+  .auth-card::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold), var(--purple-dark));
+    background-size: 300% 100%;
+    animation: rainbowShift 5s ease infinite;
+  }
+  .auth-tabs {
+    display: flex; gap: 6px; margin-bottom: 24px;
+    background: rgba(239,246,255,.85);
+    padding: 5px; border-radius: 30px;
+  }
+  .auth-tabs button {
+    flex: 1; padding: 11px 16px; border: none; cursor: pointer;
+    background: transparent; color: var(--ink-soft);
+    font-size: .88rem; border-radius: 26px;
+    transition: all .35s ease;
+  }
+  .auth-tabs button.active {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(30,58,138,.35);
+  }
+  .auth-tabs button:not(.active):hover { color: var(--purple-dark); }
+
+  .auth-form { animation: fadeInUp .4s ease both; }
+  .auth-form.hide { display: none; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: .96rem; font-weight: 600;
+    color: var(--ink); margin-bottom: 6px;
+    font-style: italic; letter-spacing: .3px;
+  }
+  .input-wrap { position: relative; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: 13px 16px;
+    border: 2px solid rgba(30,64,175,.18);
+    border-radius: 12px; font-family: inherit;
+    font-size: .92rem; color: var(--ink);
+    background: rgba(239,246,255,.55);
+    transition: all .3s ease; outline: none;
+    font-weight: 500;
+    resize: vertical;
+  }
+  .form-group textarea { min-height: 100px; padding: 12px 14px; }
+  .form-group select { cursor: pointer; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(30,64,175,.15);
+    background: #fff;
+  }
+  .form-group input.error {
+    border-color: var(--pink-dark); background: #fdf2f8;
+    animation: shake .4s ease;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: #94a3b8; }
+  .form-group input[type="password"] { padding-right: 46px; }
+
+  .toggle-pass {
+    position: absolute; right: 8px; top: 50%;
+    transform: translateY(-50%);
+    width: 36px; height: 36px; border-radius: 10px;
+    background: transparent; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); transition: all .3s ease;
+  }
+  .toggle-pass:hover {
+    background: rgba(30,64,175,.15);
+    color: var(--purple-dark);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .toggle-pass svg { width: 18px; height: 18px; }
+  .toggle-pass .icon-eye-off { display: none; }
+  .toggle-pass.active .icon-eye { display: none; }
+  .toggle-pass.active .icon-eye-off { display: block; }
+
+  .input-hint { font-size: .84rem; color: var(--ink-dim); margin-top: 5px; opacity:.9; font-style: italic; }
+  .error-msg { font-size: .84rem; color: var(--pink-dark); margin-top: 5px; font-weight:600; display:none; font-style: italic; }
+  .error-msg.show { display: block; animation: fadeInUp .3s ease; }
+
+  .forgot-link-wrap {
+    text-align: right;
+    margin: -8px 0 10px;
+  }
+  .forgot-link-wrap button {
+    background: none; border: none; cursor: pointer;
+    color: var(--purple-dark);
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: .92rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: rgba(30,64,175,.4);
+    padding: 4px 2px;
+    transition: color .3s ease;
+  }
+  .forgot-link-wrap button:hover { color: var(--pink); text-decoration-color: var(--pink); }
+
+  .btn-auth {
+    width: 100%; padding: 14px 24px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple), var(--cyan));
+    background-size: 200% 200%;
+    color: #fff; border-radius: 12px;
+    font-size: 1rem; letter-spacing: 1.5px;
+    box-shadow: 0 10px 26px rgba(30,58,138,.35);
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s ease, background-position .6s ease;
+    margin-top: 8px; position: relative; overflow: hidden;
+  }
+  .btn-auth::after {
+    content:""; position:absolute; top:50%; left:50%;
+    width:10px; height:10px; border-radius:50%;
+    background: rgba(255,255,255,.5);
+    transform: translate(-50%,-50%) scale(0); opacity: 0;
+    pointer-events:none;
+  }
+  .btn-auth:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 16px 36px rgba(30,64,175,.45);
+    background-position: 100% 50%;
+  }
+  .btn-auth:active::after { animation: ripple .6s ease-out; }
+
+  .auth-footer { margin-top: 16px; text-align: center; font-size: .9rem; color: var(--ink-soft); }
+  .auth-footer button {
+    background: none; border: none;
+    background: linear-gradient(135deg, var(--purple-dark), var(--pink));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700; cursor: pointer;
+    font-size: inherit; padding: 0 4px;
+    font-family: var(--font-accent); font-style: italic;
+    text-decoration: underline; text-decoration-color: rgba(30,64,175,.4);
+    transition: color .3s ease;
+  }
+  .auth-footer button:hover { text-decoration-color: var(--pink); }
+
+  #app { display: none; opacity: 0; }
+  #app.show { display: block; animation: pageFadeIn .8s ease .1s forwards; }
+  @keyframes pageFadeIn { to { opacity: 1; } }
+
+  .topbar {
+    background: linear-gradient(90deg, #0b1e3f, #1e3a8a, #1e40af, #0b1e3f);
+    background-size: 300% 100%;
+    animation: rainbowShift 14s ease infinite;
+    color: rgba(255,255,255,.95);
+    font-size:.78rem; padding:10px 24px;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;
+    font-weight:500; letter-spacing:.4px;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+  }
+  .topbar > div { display:flex; flex-wrap:wrap; align-items:center; }
+  .topbar a {
+    color: rgba(255,255,255,.9); text-decoration:none; margin-right:16px;
+    transition: color .3s ease; position:relative; font-weight: 500;
+  }
+  .topbar a::after {
+    content:""; position:absolute; bottom:-2px; left:0; width:0; height:2px;
+    background: var(--gold-light); transition: width .3s ease;
+    border-radius: 2px;
+  }
+  .topbar a:hover { color: var(--gold-light); }
+  .topbar a:hover::after { width:100%; }
+
+  .user-area { display: flex; align-items: center; gap: 10px; }
+  .user-chip {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,.15);
+    padding: 3px 12px 3px 3px; border-radius: 30px;
+    font-size: .78rem;
+    border: 1px solid rgba(255,255,255,.28);
+    font-weight: 600;
+  }
+  .user-avatar {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--cyan));
+    color: #fff; display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: .72rem; text-transform: uppercase;
+    font-family: var(--font-brand);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .logout-btn {
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.4);
+    color: #fff; padding: 4px 14px; border-radius: 20px;
+    cursor: pointer; font-size: .74rem;
+    font-weight: 600; transition: all .3s ease;
+    font-family: var(--font-body); letter-spacing: .5px;
+  }
+  .logout-btn:hover {
+    background: #fff;
+    color: var(--purple-dark);
+    border-color: #fff;
+    transform: translateY(-1px) scale(1.05);
+  }
+
+  header.site-header {
+    background: rgba(255,255,255,.93);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    padding:16px 24px; display:flex; align-items:center; gap:16px;
+    box-shadow: 0 6px 24px rgba(30,58,138,.07); position: relative;
+  }
+  header.site-header::after {
+    content:""; position:absolute; bottom:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold), var(--purple-dark));
+    background-size: 300% 100%;
+    animation: rainbowShift 6s ease infinite;
+  }
+  .logo {
+    width:56px; height:56px; border-radius:16px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple), var(--cyan));
+    background-size: 200% 200%;
+    animation: rainbowShift 6s ease infinite;
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:1.05rem; flex-shrink:0;
+    box-shadow: 0 8px 24px rgba(30,58,138,.35), inset 0 0 0 2px rgba(255,255,255,.3);
+    letter-spacing: 1px;
+    transform: rotate(-4deg);
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    position: relative; overflow: hidden;
+  }
+  .logo::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  .logo:hover { transform: rotate(4deg) scale(1.08); }
+  .logo:hover::after { animation: shimmerSweep 1s ease; }
+  .brand h1 {
+    font-size:1.4rem; line-height:1.2;
+    background: linear-gradient(120deg, var(--purple-dark), var(--purple), var(--cyan));
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 8s ease infinite;
+    letter-spacing: 1.5px;
+  }
+  .brand p {
+    font-size: .9rem; color: var(--ink-soft); font-weight:500;
+    font-style: italic; font-family: var(--font-accent);
+  }
+
+  nav.mainnav {
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding:8px 16px; display:flex; flex-wrap:wrap;
+    box-shadow: 0 4px 16px rgba(30,58,138,.06);
+    position:sticky; top:0; z-index:100;
+    border-bottom: 1px solid rgba(30,64,175,.1);
+  }
+  nav.mainnav a {
+    color: var(--ink-soft); text-decoration:none;
+    padding:11px 16px; font-size:.92rem; font-weight: 600;
+    border-radius:30px; margin:5px 3px;
+    position:relative; isolation:isolate;
+    transition: color .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+    font-style: italic;
+  }
+  nav.mainnav a::before {
+    content:""; position:absolute; inset:0; border-radius:30px;
+    background: linear-gradient(135deg, rgba(30,64,175,.14), rgba(236,72,153,.08));
+    opacity:0; transition:opacity .35s ease; z-index:-1;
+  }
+  nav.mainnav a:hover {
+    color: var(--purple-dark);
+    transform: translateY(-3px) scale(1.05);
+  }
+  nav.mainnav a:hover::before { opacity:1; }
+  nav.mainnav a.active {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color:#fff;
+    box-shadow: 0 6px 20px rgba(30,58,138,.35);
+    transform: translateY(-2px);
+    font-style: normal;
+  }
+  nav.mainnav a.active::before { opacity:0; }
+
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 75px 24px 95px; text-align:center;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(224,236,255,.45) 100%);
+    color: var(--ink);
+  }
+  .bubble { position:absolute; border-radius:50%; pointer-events:none; }
+  .bubble.b1 { width:200px; height:200px; top:-50px; left:5%;
+    background: radial-gradient(circle, rgba(147,197,253,.55), transparent 70%);
+    animation: floatSlow 11s ease-in-out infinite; }
+  .bubble.b2 { width:150px; height:150px; bottom:20px; right:8%;
+    background: radial-gradient(circle, rgba(125,211,252,.5), transparent 70%);
+    animation: floatSlow 9s ease-in-out infinite reverse; }
+  .bubble.b3 { width:100px; height:100px; top:30%; right:22%;
+    background: radial-gradient(circle, rgba(236,72,153,.32), transparent 70%);
+    animation: floatSlow 13s ease-in-out infinite; }
+  .bubble.b4 { width:80px; height:80px; bottom:40%; left:18%;
+    background: radial-gradient(circle, rgba(212,175,55,.32), transparent 70%);
+    animation: floatSlow 8s ease-in-out infinite reverse; }
+
+  .hero .deco-star {
+    position:absolute; font-size: 1.4rem;
+    color: var(--purple);
+    animation: floatStar 5s ease-in-out infinite;
+    text-shadow: 0 0 16px currentColor;
+    opacity: .7; pointer-events: none;
+  }
+  .hero .deco-star.s1 { top: 15%; left: 12%; animation-delay: 0s; color: var(--pink); }
+  .hero .deco-star.s2 { top: 25%; right: 15%; animation-delay: 1.2s; color: var(--cyan); }
+  .hero .deco-star.s3 { bottom: 20%; left: 8%; animation-delay: 2.4s; color: var(--gold); }
+  .hero .deco-star.s4 { top: 60%; right: 8%; animation-delay: 3.6s; color: var(--purple); font-size: 1rem; }
+
+  .hero .badge {
+    display:inline-block;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; padding:10px 24px; border-radius:30px;
+    font-size:.72rem; letter-spacing:3px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 24px rgba(30,58,138,.3);
+    animation: fadeInUp .8s ease both, pulseSoft 3s ease-in-out infinite;
+    margin-bottom:20px;
+    position: relative; z-index:2; overflow: hidden;
+  }
+  .hero .badge::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+    transform: translateX(-120%) skewX(-20deg);
+    animation: shimmerSweep 4.5s ease-in-out infinite;
+  }
+
+  .hero h2 {
+    font-size:2.9rem; margin-bottom:16px;
+    color: var(--ink); line-height: 1.15;
+    animation: fadeInUp .9s ease .1s both;
+    position: relative; z-index:2;
+    font-family: var(--font-brand);
+    letter-spacing: 1px; font-weight: 400;
+  }
+  .hero h2 span {
+    font-style: italic;
+    font-family: var(--font-heading);
+    background: linear-gradient(120deg, var(--purple-dark), var(--cyan), var(--pink), var(--purple-dark));
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 6s ease infinite;
+    padding: 0 4px;
+  }
+  .hero p {
+    font-size:1.05rem; max-width:620px; margin:0 auto;
+    color: var(--ink-soft); animation: fadeInUp 1.1s ease .2s both;
+    position: relative; z-index:2; font-weight: 500;
+  }
+  .hero-wave {
+    position:absolute; bottom:-2px; left:0;
+    width: 200%; height: 60px;
+    animation: waveMove 20s linear infinite;
+    pointer-events: none;
+  }
+
+  .hero-cta {
+    display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    margin-top: 34px; position: relative; z-index: 2;
+    animation: fadeInUp 1.2s ease .35s both;
+  }
+  .hero-cta .cta-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 30px; border: none;
+    cursor: pointer;
+    font-size: .92rem; letter-spacing: .5px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff;
+    box-shadow: 0 10px 26px rgba(30,58,138,.3);
+    transition: all .4s cubic-bezier(.34,1.56,.64,1);
+    position: relative; overflow: hidden;
+  }
+  .hero-cta .cta-btn::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    opacity: 0; transition: opacity .4s ease; z-index: -1;
+  }
+  .hero-cta .cta-btn:hover {
+    transform: translateY(-4px) scale(1.04) rotate(-1deg);
+    box-shadow: 0 16px 40px rgba(30,64,175,.45);
+  }
+  .hero-cta .cta-btn:hover::before { opacity: 1; }
+  .hero-cta .cta-btn .arrow {
+    display: inline-block;
+    animation: arrowBounce 1.4s ease-in-out infinite;
+  }
+  .hero-cta .cta-btn.secondary {
+    background: rgba(255,255,255,.95);
+    color: var(--purple-dark);
+    border: 2px solid rgba(30,64,175,.35);
+    box-shadow: 0 6px 20px rgba(30,58,138,.12);
+  }
+  .hero-cta .cta-btn.secondary:hover {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff;
+    border-color: transparent;
+  }
+
+  .container {
+    max-width:1080px; margin:0 auto; padding:28px 16px 60px;
+    display:grid; grid-template-columns:1fr 300px; gap:22px;
+    position:relative; z-index:1;
+  }
+  @media (max-width:860px) { .container { grid-template-columns:1fr; } }
+
+  .page { display:none; }
+  .page.active {
+    display:block; grid-column: 1;
+    animation: fadeInScale .55s cubic-bezier(.22,1,.36,1) both;
+  }
+  @media (max-width:860px) { .page.active { grid-column: 1 / -1; } }
+
+  .card {
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: 20px; padding:26px; margin-bottom:20px;
+    box-shadow: 0 10px 32px rgba(30,58,138,.08);
+    border: 1.5px solid rgba(30,64,175,.1);
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease, border-color .4s ease;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold), var(--purple-dark));
+    background-size: 300% 100%;
+    animation: rainbowShift 8s ease infinite;
+  }
+  .card:hover {
+    transform: translateY(-6px) rotate(-.4deg);
+    box-shadow: 0 20px 48px rgba(30,58,138,.16);
+    border-color: rgba(236,72,153,.28);
+  }
+  .card.highlight {
+    animation: targetPulse 1.7s ease-out;
+    border-color: var(--pink) !important;
+  }
+  .card h3 {
+    font-size:1.5rem; color: var(--purple-dark);
+    margin-bottom:14px; padding-bottom:12px;
+    border-bottom: 2px dashed rgba(30,64,175,.22);
+    letter-spacing: .5px; font-style: italic; font-weight: 500;
+  }
+  .card h4 {
+    font-size:1.2rem;
+    background: linear-gradient(135deg, var(--purple-dark), var(--pink));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin:16px 0 8px;
+    letter-spacing: .4px; font-style: italic; font-weight: 500;
+  }
+  .card p, .card li { font-size:.94rem; color: var(--ink-soft); line-height:1.75; font-weight: 500; }
+  .card ul, .card ol { padding-left:24px; margin:8px 0; }
+  .card li { margin-bottom:4px; }
+  .card li::marker { color: var(--purple); }
+  .card li b { color: var(--purple-dark); }
+
+  .jump-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 14px; padding: 10px 20px;
+    background: rgba(30,64,175,.08);
+    color: var(--purple-dark);
+    border: 1.5px solid rgba(30,64,175,.3);
+    border-radius: 24px; cursor: pointer;
+    font-size: .82rem;
+    transition: all .35s cubic-bezier(.34,1.56,.64,1);
+    letter-spacing: .5px;
+    position: relative; overflow: hidden;
+  }
+  .jump-btn .arrow {
+    transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+    font-size: 1.1rem;
+  }
+  .jump-btn:hover {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; border-color: transparent;
+    transform: translateY(-3px) rotate(-1deg);
+    box-shadow: 0 10px 24px rgba(30,58,138,.35);
+  }
+  .jump-btn:hover .arrow { transform: translateX(4px); }
+
+  aside .widget {
+    background: rgba(255,255,255,.96);
+    backdrop-filter: blur(12px);
+    border-radius: 18px; padding:20px; margin-bottom:16px;
+    box-shadow: 0 8px 24px rgba(30,58,138,.07);
+    border-left: 4px solid var(--purple);
+    transition: all .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  aside .widget:nth-child(2) { border-left-color: var(--cyan); }
+  aside .widget:nth-child(3) { border-left-color: var(--pink); }
+  aside .widget:nth-child(4) { border-left-color: var(--gold); }
+  aside .widget:hover {
+    transform: translateX(8px) rotate(-1deg);
+    box-shadow: 0 16px 36px rgba(30,58,138,.14);
+    border-left-width: 6px;
+  }
+  aside .widget h4 {
+    font-size:1.15rem; color: var(--purple-dark);
+    margin-bottom:10px;
+    letter-spacing: .4px; font-style: italic; font-weight: 500;
+  }
+  aside .widget p, aside .widget li { font-size:.86rem; color: var(--ink-soft); font-weight: 500; }
+  aside .widget ul { padding-left:18px; }
+  aside .widget li::marker { color: var(--pink); }
+
+  .status-box {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple), var(--cyan));
+    background-size: 200% 200%;
+    animation: rainbowShift 8s ease infinite;
+    color:#fff; border-radius:18px; padding:26px 20px;
+    text-align:center;
+    box-shadow: 0 12px 34px rgba(30,58,138,.35), inset 0 0 0 2px rgba(255,255,255,.2);
+    position:relative; overflow:hidden;
+  }
+  .status-box::before {
+    content:""; position:absolute; top:-50%; left:-50%;
+    width:200%; height:200%;
+    background: linear-gradient(45deg, transparent 35%, rgba(255,255,255,.3) 50%, transparent 65%);
+    animation: spinSlow 14s linear infinite; pointer-events:none;
+  }
+  .status-box .angka {
+    font-size:2.8rem; color:#fff;
+    position:relative; z-index:1;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    letter-spacing: 2px;
+    text-shadow: 0 4px 12px rgba(0,0,0,.15);
+  }
+  .status-box .angka.bump { transform: scale(1.18); }
+  .status-box small {
+    display:block; font-size:.9rem; opacity:.95;
+    font-weight:500; position:relative; z-index:1; margin-top:6px;
+    color: #fff; letter-spacing: .4px; font-style: italic;
+  }
+  .status-box .dots {
+    display:flex; justify-content:center; gap:5px; margin-top:10px;
+    position:relative; z-index:1;
+  }
+  .status-box .dots span {
+    width:7px; height:7px; border-radius:50%; background: #fff;
+    animation: dotBlink 1.4s ease-in-out infinite;
+  }
+  .status-box .dots span:nth-child(2) { animation-delay:.2s; }
+  .status-box .dots span:nth-child(3) { animation-delay:.4s; }
+
+  table {
+    width:100%; border-collapse:separate; border-spacing:0;
+    margin-top:10px; font-size:.9rem;
+    border-radius:14px; overflow:hidden;
+    box-shadow: 0 4px 16px rgba(30,58,138,.07);
+  }
+  th, td { padding:12px 16px; text-align:left; }
+  th {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color:#fff; font-weight:400; font-size:.82rem; letter-spacing:1.5px;
+    font-family: var(--font-brand);
+    text-transform: uppercase;
+  }
+  td {
+    background: rgba(239,246,255,.5);
+    border-bottom:1px solid rgba(30,64,175,.1);
+    color: var(--ink-soft); font-weight: 500;
+  }
+  tr { transition: background .3s ease; }
+  tr:hover td { background: rgba(30,64,175,.08); }
+  tr:last-child td { border-bottom:none; }
+
+  .alert {
+    padding:16px 20px; border-radius:14px; margin:12px 0;
+    font-size:.92rem;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease;
+    position: relative;
+    border-left: 5px solid transparent;
+    font-weight: 500;
+  }
+  .alert:hover {
+    transform: translateX(8px) rotate(-.5deg);
+    box-shadow: 0 8px 24px rgba(30,58,138,.13);
+  }
+  .alert-label {
+    display: block; font-size: .92rem; font-weight: 700;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    margin-bottom: 5px; opacity: .9; font-style: italic;
+  }
+  .alert-info {
+    background: linear-gradient(135deg, rgba(147,197,253,.28), rgba(125,211,252,.2));
+    border-left-color: var(--purple-dark); color: var(--purple-dark);
+  }
+  .alert-warn {
+    background: linear-gradient(135deg, rgba(229,197,99,.3), rgba(251,191,36,.15));
+    border-left-color: var(--gold); color: #92400e;
+  }
+  .alert-danger {
+    background: linear-gradient(135deg, rgba(236,72,153,.2), rgba(219,39,119,.13));
+    border-left-color: var(--pink-dark); color: #9d174d;
+  }
+  .alert-success {
+    background: linear-gradient(135deg, rgba(167,243,208,.4), rgba(125,211,252,.25));
+    border-left-color: var(--lime-dark); color: #065f46;
+  }
+
+  .check-item {
+    display:flex; align-items:flex-start; gap:14px;
+    padding:15px 18px; margin-bottom:8px; border-radius:14px;
+    background: rgba(255,255,255,.8); font-size:.92rem;
+    cursor:pointer; user-select: none;
+    transition: all .4s cubic-bezier(.34,1.56,.64,1);
+    border: 1.5px solid rgba(30,64,175,.14);
+    font-weight: 500;
+  }
+  .check-item:hover {
+    background: rgba(239,246,255,.85);
+    transform: translateX(8px) rotate(-.5deg);
+    border-color: rgba(30,64,175,.5);
+    box-shadow: 0 6px 18px rgba(30,58,138,.1);
+  }
+  .check-item input {
+    width:22px; height:22px; margin-top:1px;
+    accent-color: var(--purple); cursor:pointer; flex-shrink:0;
+    transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .check-item input:checked { animation: checkPop .4s cubic-bezier(.34,1.56,.64,1); }
+  .check-item span { color: var(--ink-soft); transition: color .3s ease; flex: 1; }
+  .check-item:has(input:checked),
+  .check-item.checked {
+    background: linear-gradient(135deg, rgba(30,64,175,.14), rgba(236,72,153,.09));
+    border-color: var(--purple);
+  }
+  .check-item:has(input:checked) span,
+  .check-item.checked span {
+    color: var(--purple-dark); font-weight:600;
+    text-decoration: line-through;
+    text-decoration-color: rgba(30,64,175,.55);
+    text-decoration-thickness: 2px;
+  }
+
+  .progress-bar {
+    height:14px; background: rgba(239,246,255,.9);
+    border-radius:12px; overflow:hidden; margin-top:16px;
+    box-shadow: inset 0 2px 6px rgba(30,58,138,.12);
+  }
+  .progress-fill {
+    height:100%; width:0%;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold));
+    background-size: 300% 100%;
+    animation: rainbowShift 4s ease infinite;
+    border-radius:12px;
+    transition: width .8s cubic-bezier(.22,1,.36,1);
+    box-shadow: 0 0 16px rgba(30,64,175,.5);
+  }
+
+  .calendar-widget {
+    background: linear-gradient(180deg, rgba(239,246,255,.7), rgba(255,255,255,.9));
+    border: 1.5px solid rgba(30,64,175,.15);
+    border-radius: 18px;
+    padding: 18px 16px 16px;
+    margin-bottom: 22px;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(30,58,138,.06) inset;
+    animation: fadeInScale .6s ease both;
+  }
+  .cal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1.5px dashed rgba(30,64,175,.2);
+  }
+  .cal-title {
+    font-size: 1.35rem;
+    color: var(--purple-dark);
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: .5px;
+  }
+  .cal-nav {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,.9);
+    border: 1.5px solid rgba(30,64,175,.28);
+    cursor: pointer;
+    color: var(--purple-dark);
+    font-size: 1.2rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    font-family: var(--font-body);
+    padding-bottom: 3px;
+  }
+  .cal-nav:hover {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; border-color: transparent;
+    transform: scale(1.1) rotate(-8deg);
+    box-shadow: 0 6px 16px rgba(30,58,138,.35);
+  }
+  .cal-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px; margin-bottom: 8px;
+    font-size: .82rem; text-align: center;
+    color: var(--ink-dim);
+    font-family: var(--font-accent);
+    font-style: italic; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .cal-day {
+    aspect-ratio: 1 / 1;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .9rem; font-weight: 600;
+    cursor: pointer;
+    background: rgba(255,255,255,.75);
+    color: var(--ink);
+    border: 1.5px solid transparent;
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    position: relative; user-select: none;
+  }
+  .cal-day:hover {
+    transform: translateY(-3px) scale(1.06);
+    background: #fff;
+    border-color: var(--purple-light);
+    box-shadow: 0 6px 14px rgba(30,58,138,.15);
+    color: var(--purple-dark);
+  }
+  .cal-day.other-month {
+    color: #cbd5e1; background: transparent;
+    cursor: default; pointer-events: none; font-weight: 400;
+  }
+  .cal-day.today {
+    border-color: var(--cyan); color: var(--cyan); font-weight: 700;
+  }
+  .cal-day.today::after {
+    content: ""; position: absolute;
+    bottom: 5px; left: 50%;
+    transform: translateX(-50%);
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--cyan);
+  }
+  .cal-day.selected {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff; border-color: transparent;
+    transform: translateY(-2px) scale(1.08);
+    animation: softGlow 2.5s ease-in-out infinite;
+  }
+  .cal-day.selected.today { color: #fff; }
+  .cal-day.selected.today::after { background: var(--gold-light); }
+  .cal-day.done-part::before {
+    content: "";
+    position: absolute;
+    top: 5px; right: 5px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--pink);
+    box-shadow: 0 0 8px rgba(236,72,153,.7);
+    animation: dotBlink 2s ease-in-out infinite;
+  }
+  .cal-day.done-full {
+    background: linear-gradient(135deg, rgba(30,64,175,.15), rgba(167,243,208,.35));
+    color: var(--purple-dark); font-weight: 700;
+  }
+  .cal-day.done-full::before {
+    content: "✦";
+    position: absolute;
+    top: 3px; right: 4px;
+    font-size: .7rem;
+    color: var(--pink);
+    text-shadow: 0 0 8px rgba(236,72,153,.7);
+    animation: floatStar 3s ease-in-out infinite;
+  }
+  .cal-day.selected.done-full,
+  .cal-day.selected.done-part { color: #fff; }
+  .cal-day.selected.done-full::before,
+  .cal-day.selected.done-part::before { color: var(--gold-light); }
+  .cal-day.has-note::after {
+    content: "";
+    position: absolute;
+    bottom: 4px; left: 50%;
+    transform: translateX(-50%);
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px rgba(212,175,55,.7);
+  }
+  .cal-legend {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1.5px dashed rgba(30,64,175,.18);
+    font-size: .85rem; color: var(--ink-dim);
+    font-family: var(--font-accent);
+    font-style: italic; font-weight: 500;
+    align-items: center;
+  }
+  .cal-legend > span { display: inline-flex; align-items: center; gap: 6px; }
+  .cal-legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+  .cal-legend .dot-full {
+    background: linear-gradient(135deg, var(--purple), var(--cyan));
+    box-shadow: 0 0 8px rgba(30,64,175,.5);
+  }
+  .cal-legend .dot-part { background: var(--pink); box-shadow: 0 0 8px rgba(236,72,153,.6); }
+  .cal-legend .dot-note { background: var(--gold); box-shadow: 0 0 8px rgba(212,175,55,.65); }
+
+  .checklist-date-label {
+    font-size: 1.05rem; color: var(--purple-dark);
+    font-style: italic; font-weight: 600;
+    margin: 4px 0 12px; padding-left: 12px;
+    border-left: 3px solid var(--pink);
+    letter-spacing: .3px;
+  }
+
+  .quiz-q {
+    margin-bottom:20px; padding:20px; border-radius:16px;
+    background: rgba(255,255,255,.85);
+    border: 1.5px solid rgba(30,64,175,.14);
+    transition: border-color .4s ease, box-shadow .4s ease, transform .4s cubic-bezier(.34,1.56,.64,1);
+    backdrop-filter: blur(6px);
+  }
+  .quiz-q:hover {
+    border-color: var(--purple);
+    box-shadow: 0 10px 30px rgba(30,58,138,.16);
+    transform: translateY(-4px) rotate(-.4deg);
+  }
+  .quiz-q p {
+    font-weight:600; color: var(--purple-dark);
+    margin-bottom:12px;
+    font-family: var(--font-accent);
+    font-style: italic; font-size: 1.08rem;
+  }
+  .quiz-q label {
+    display:flex; align-items:center; gap:10px; background: #fff;
+    border: 1.5px solid rgba(30,64,175,.14);
+    padding:12px 16px; border-radius:12px; margin-bottom:8px;
+    cursor:pointer; font-size:.9rem;
+    transition: all .35s cubic-bezier(.34,1.56,.64,1);
+    color: var(--ink-soft); font-weight: 500;
+  }
+  .quiz-q label:hover {
+    background: rgba(239,246,255,.7);
+    border-color: var(--purple);
+    transform: translateX(8px);
+  }
+  .quiz-q input { accent-color: var(--purple); transition: transform .3s cubic-bezier(.34,1.56,.64,1); flex-shrink: 0; }
+  .quiz-q input:checked { transform: scale(1.25); }
+  .quiz-q label:has(input:checked) {
+    background: linear-gradient(135deg, rgba(30,64,175,.12), rgba(236,72,153,.08));
+    border-color: var(--purple); color: var(--purple-dark); font-weight:600;
+  }
+  .correct {
+    background: linear-gradient(135deg, rgba(167,243,208,.45), rgba(125,211,252,.3)) !important;
+    border-color: var(--lime-dark) !important;
+    animation: checkPop .5s cubic-bezier(.34,1.56,.64,1);
+    color: var(--lime-dark) !important;
+  }
+  .wrong {
+    background: linear-gradient(135deg, rgba(236,72,153,.3), rgba(219,39,119,.25)) !important;
+    border-color: var(--pink-dark) !important;
+    animation: pulseSoft .6s ease;
+    color: var(--pink-dark) !important;
+  }
+
+  .btn {
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    border:none; cursor:pointer;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple), var(--cyan));
+    background-size: 200% 200%;
+    color:#fff; padding:15px 34px; border-radius:30px;
+    font-size:1rem; letter-spacing: 1px;
+    box-shadow: 0 10px 26px rgba(30,58,138,.32);
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), box-shadow .4s ease, background-position .6s ease;
+    position:relative; overflow:hidden;
+  }
+  .btn::after {
+    content:""; position:absolute; top:50%; left:50%;
+    width:10px; height:10px; border-radius:50%;
+    background: rgba(255,255,255,.5);
+    transform: translate(-50%,-50%) scale(0); opacity: 0;
+    pointer-events:none;
+  }
+  .btn:hover {
+    transform: translateY(-5px) scale(1.04) rotate(-1deg);
+    box-shadow: 0 18px 40px rgba(30,64,175,.45);
+    background-position: 100% 50%;
+  }
+  .btn:active { transform: translateY(-2px) scale(.99); }
+  .btn:active::after { animation: ripple .6s ease-out; }
+  .btn.small { padding: 11px 22px; font-size: .88rem; }
+
+  #hasil {
+    margin-top:20px; padding:26px; border-radius:18px;
+    background: linear-gradient(135deg, rgba(30,64,175,.1), rgba(236,72,153,.1), rgba(125,211,252,.12));
+    text-align:center; font-weight:500; color: var(--purple-dark);
+    display:none; border: 2px dashed var(--purple); font-size:.98rem;
+  }
+  #hasil.show { display: block; animation: fadeInScale .6s cubic-bezier(.34,1.56,.64,1) both; }
+  #hasil b {
+    font-size:1.6rem; display:inline-block; margin:0 6px;
+    font-family: var(--font-brand);
+    background: linear-gradient(135deg, var(--purple-dark), var(--pink));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .breadcrumb {
+    font-size:.94rem; color: var(--ink-soft); margin-bottom:16px;
+    padding:9px 18px; border-radius:30px;
+    background: rgba(255,255,255,.85); backdrop-filter: blur(6px);
+    display:inline-flex; align-items:center; gap:6px;
+    box-shadow: 0 4px 12px rgba(30,58,138,.05);
+    border: 1px solid rgba(30,64,175,.14);
+    font-style: italic;
+  }
+  .breadcrumb a {
+    color: var(--purple-dark); text-decoration:none; font-weight:600;
+    transition: color .3s ease;
+  }
+  .breadcrumb a:hover { color: var(--pink); }
+
+  .input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .input-grid .form-group { margin-bottom: 0; }
+
+  .glucose-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .stat-card {
+    background: linear-gradient(135deg, rgba(30,64,175,.06), rgba(236,72,153,.04));
+    border: 1.5px solid rgba(30,64,175,.14);
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .stat-card .stat-label {
+    font-size: .78rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-accent);
+    font-style: italic;
+  }
+  .stat-card .stat-value {
+    font-size: 1.7rem;
+    font-family: var(--font-brand);
+    color: var(--purple-dark);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .stat-card .stat-unit {
+    font-size: .75rem;
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+
+  .glucose-list, .reminder-list {
+    margin-top: 16px;
+    max-height: 440px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .entry-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    background: rgba(255,255,255,.85);
+    border: 1.5px solid rgba(30,64,175,.12);
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    animation: slideGlowIn .4s ease both;
+  }
+  .entry-item:hover {
+    transform: translateX(6px);
+    border-color: var(--purple-light);
+    box-shadow: 0 6px 18px rgba(30,58,138,.1);
+  }
+  .entry-item.due {
+    border-color: var(--pink);
+    background: linear-gradient(135deg, rgba(236,72,153,.1), rgba(255,255,255,.9));
+    animation: softGlow 2.4s ease-in-out infinite;
+  }
+  .entry-main { flex: 1; min-width: 0; }
+  .entry-title { font-weight: 600; color: var(--ink); font-size: .95rem; }
+  .entry-meta {
+    font-size: .78rem; color: var(--ink-dim);
+    font-family: var(--font-accent); font-style: italic;
+  }
+  .entry-value {
+    font-family: var(--font-brand);
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    color: var(--purple-dark);
+  }
+  .entry-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .badge-low { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #92400e; }
+  .badge-normal { background: linear-gradient(135deg, #d1fae5, #a7f3d0); color: #065f46; }
+  .badge-high { background: linear-gradient(135deg, #fed7aa, #fdba74); color: #9a3412; }
+  .badge-vhigh { background: linear-gradient(135deg, #fecaca, #fca5a5); color: #991b1b; }
+  .badge-due { background: linear-gradient(135deg, var(--pink), var(--pink-dark)); color: #fff; }
+  .delete-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(236,72,153,.35);
+    background: rgba(255,255,255,.9);
+    color: var(--pink-dark);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s ease;
+    flex-shrink: 0;
+    font-size: 1.1rem; line-height: 1;
+  }
+  .delete-btn:hover {
+    background: var(--pink);
+    color: #fff;
+    transform: scale(1.1) rotate(-8deg);
+  }
+  .empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--ink-dim);
+    font-style: italic;
+    font-family: var(--font-accent);
+    font-size: 1rem;
+  }
+
+  .welcome-card {
+    text-align: center;
+    padding: 40px 26px 32px;
+    background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(239,246,255,.9));
+    overflow: visible;
+  }
+  .welcome-sticker {
+    position: relative;
+    display: inline-block;
+    background: #fde047;
+    border: 4px solid #0f172a;
+    border-radius: 200px;
+    padding: 6px 70px 14px 30px;
+    transform: rotate(-7deg);
+    box-shadow: 7px 7px 0 #0f172a, 9px 9px 0 rgba(236,72,153,.35);
+    margin: 18px 0 34px;
+    animation: gentleTilt 6s ease-in-out infinite;
+  }
+  .sticker-main {
+    font-family: var(--font-brand);
+    font-size: 3rem;
+    color: #0f172a;
+    font-style: italic;
+    letter-spacing: -2.5px;
+    display: block;
+    line-height: 1;
+    text-shadow: 3px 3px 0 rgba(255,255,255,.3);
+  }
+  .sticker-hai {
+    position: absolute;
+    top: -14px; left: 6px;
+    background: #7dd3fc;
+    color: #0f172a;
+    font-family: var(--font-brand);
+    font-size: .85rem;
+    padding: 3px 12px 5px;
+    border: 3px solid #0f172a;
+    border-radius: 50px;
+    transform: rotate(-18deg);
+    letter-spacing: 0;
+  }
+  .sticker-qmark {
+    position: absolute;
+    top: -20px; right: 18px;
+    font-family: var(--font-brand);
+    font-size: 1.9rem;
+    color: #ec4899;
+    transform: rotate(14deg);
+    text-shadow: 2.5px 2.5px 0 #0f172a;
+    line-height: 1;
+  }
+  .sticker-qmark.second { right: 4px; top: -10px; font-size: 1.4rem; }
+  .sticker-star-inline {
+    position: absolute;
+    bottom: 10px; left: 20px;
+    color: #0f172a;
+    font-size: 1.3rem;
+    transform: rotate(-15deg);
+  }
+  .welcome-greet {
+    font-family: var(--font-brand);
+    font-size: 2.2rem;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    font-weight: 400;
+  }
+  .welcome-greet span {
+    font-style: italic;
+    font-family: var(--font-heading);
+    background: linear-gradient(120deg, var(--purple-dark), var(--cyan), var(--pink), var(--purple-dark));
+    background-size: 300% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbowShift 5s ease infinite;
+  }
+  .welcome-sub {
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    margin-bottom: 26px;
+    font-weight: 500;
+  }
+  .welcome-sub b { color: var(--purple-dark); }
+  .welcome-info {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; margin-bottom: 26px;
+  }
+  .info-chip {
+    display: inline-flex; flex-direction: column;
+    background: linear-gradient(135deg, rgba(30,64,175,.08), rgba(236,72,153,.06));
+    border: 1.5px solid rgba(30,64,175,.18);
+    border-radius: 14px;
+    padding: 10px 18px;
+    text-align: left;
+    min-width: 140px;
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  .info-chip:hover {
+    transform: translateY(-3px);
+    border-color: var(--purple);
+    box-shadow: 0 8px 20px rgba(30,58,138,.14);
+  }
+  .info-label {
+    font-size: .72rem;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-weight: 600;
+  }
+  .info-value {
+    font-family: var(--font-brand);
+    font-size: 1rem;
+    color: var(--purple-dark);
+    letter-spacing: .5px;
+    margin-top: 2px;
+    word-break: break-all;
+  }
+  .welcome-actions {
+    display: flex; flex-wrap: wrap;
+    gap: 10px; justify-content: center;
+    margin-top: 10px;
+  }
+
+  .profile-top {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-top: 12px;
+  }
+  @media (max-width: 640px) {
+    .profile-top { grid-template-columns: 1fr; }
+    .profile-avatar-wrap { justify-self: center; }
+  }
+  .profile-avatar-wrap {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px;
+  }
+  .profile-avatar {
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(30,64,175,.1), rgba(236,72,153,.08));
+    border: 3px dashed rgba(30,64,175,.35);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+    transition: all .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .profile-avatar:hover {
+    border-color: var(--purple);
+    transform: scale(1.03);
+  }
+  .profile-avatar img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: checkPop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .avatar-placeholder {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink-dim);
+    font-weight: 500;
+  }
+  .upload-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px;
+    border: 1.5px solid rgba(30,64,175,.35);
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color: #fff;
+    font-size: .82rem;
+    font-weight: 600;
+    font-family: var(--font-brand);
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: all .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  .upload-btn:hover {
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 0 8px 18px rgba(30,58,138,.35);
+  }
+  .profile-fields { min-width: 0; }
+
+  .id-card {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    aspect-ratio: 1.55 / 1;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 45%, #ec4899 100%);
+    padding: 16px 20px 14px;
+    color: #fff;
+    box-shadow:
+      0 20px 50px rgba(30,58,138,.35),
+      inset 0 0 0 2px rgba(255,255,255,.22);
+    overflow: hidden;
+    transform: rotate(-1.5deg);
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .id-card:hover { transform: rotate(0deg) scale(1.015); }
+  .id-card-pattern {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(255,255,255,.22), transparent 30%),
+      radial-gradient(circle at 85% 85%, rgba(255,255,255,.18), transparent 35%);
+    pointer-events: none;
+  }
+  .id-card::before {
+    content:""; position: absolute;
+    top: 0; left: -30%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    animation: shimmerSweep 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .id-card-header {
+    display: flex; align-items: center; gap: 10px;
+    position: relative; z-index: 2;
+    margin-bottom: 12px;
+  }
+  .id-card-logo {
+    width: 34px; height: 34px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.95);
+    color: #1e3a8a;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-brand);
+    font-size: .9rem;
+    letter-spacing: .5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+  }
+  .id-card-brand { flex: 1; }
+  .brand-line1 {
+    font-family: var(--font-brand);
+    font-size: 1.05rem;
+    letter-spacing: 1.5px;
+    line-height: 1;
+  }
+  .brand-line2 {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: .74rem;
+    opacity: .9;
+    margin-top: 2px;
+  }
+  .id-card-chip {
+    width: 28px; height: 22px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #fde047, #d4af37);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.2);
+    position: relative;
+  }
+  .id-card-chip::before,
+  .id-card-chip::after {
+    content:""; position: absolute;
+    left: 3px; right: 3px;
+    height: 1.5px;
+    background: rgba(0,0,0,.35);
+  }
+  .id-card-chip::before { top: 7px; }
+  .id-card-chip::after { bottom: 7px; }
+
+  .id-card-body {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 14px;
+    position: relative; z-index: 2;
+    align-items: center;
+  }
+  .id-card-photo {
+    width: 88px; height: 108px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.2);
+    border: 2px solid rgba(255,255,255,.55);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .id-card-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .id-card-photo-empty {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: .78rem;
+    opacity: .8;
+  }
+  .id-card-info { min-width: 0; }
+  .id-field { margin-bottom: 6px; }
+  .id-field.small { margin-bottom: 0; }
+  .id-field-label {
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: .68rem;
+    opacity: .85;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .id-field-value {
+    font-family: var(--font-brand);
+    font-size: .95rem;
+    letter-spacing: .5px;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+  .id-name {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: .3px;
+  }
+  .id-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .id-field-row .id-field-value { font-size: .82rem; }
+
+  .id-card-footer {
+    position: absolute;
+    bottom: 12px; left: 20px; right: 20px;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 2;
+  }
+  .id-card-idno {
+    font-family: var(--font-brand);
+    font-size: .78rem;
+    letter-spacing: 2px;
+    opacity: .9;
+    background: rgba(255,255,255,.15);
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .id-card-stickers { display: flex; gap: 6px; }
+  .id-sticker {
+    font-size: 1rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+    display: inline-block;
+  }
+  .s-star   { color: #fde047; animation: floatStar 3s ease-in-out infinite; }
+  .s-heart  { color: #fbcfe8; animation: floatStar 3s ease-in-out infinite .4s; }
+  .s-sparkle{ color: #fff;    animation: floatStar 3s ease-in-out infinite .8s; }
+
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 9990;
+    background: rgba(15,23,42,.55);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px 16px; overflow-y: auto;
+  }
+  .modal-overlay.show { display: flex; animation: fadeInScale .35s cubic-bezier(.22,1,.36,1) both; }
+
+  .modal-card {
+    background: rgba(255,255,255,.98);
+    border-radius: 22px;
+    padding: 32px 28px;
+    width: 100%; max-width: 440px;
+    box-shadow: 0 30px 80px rgba(15,23,42,.4), 0 0 0 1.5px rgba(30,64,175,.15);
+    position: relative;
+    animation: fadeInScale .4s ease both;
+  }
+  .modal-card::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold), var(--purple-dark));
+    background-size: 300% 100%;
+    border-radius: 22px 22px 0 0;
+    animation: rainbowShift 6s ease infinite;
+  }
+
+  .modal-close {
+    position: absolute; top: 12px; right: 14px;
+    width: 34px; height: 34px; border-radius: 50%;
+    border: none; cursor: pointer;
+    background: rgba(30,64,175,.1);
+    color: var(--purple-dark);
+    font-size: 1.3rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s cubic-bezier(.34,1.56,.64,1);
+    padding-bottom: 3px;
+  }
+  .modal-close:hover {
+    background: var(--pink); color: #fff;
+    transform: rotate(90deg) scale(1.1);
+  }
+
+  .modal-step { display: block; animation: fadeInUp .4s ease both; }
+  .modal-step.hide { display: none; }
+
+  .modal-icon {
+    font-size: 2.2rem; text-align: center; margin-bottom: 8px;
+    filter: drop-shadow(0 4px 10px rgba(30,64,175,.3));
+  }
+
+  .modal-title {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--purple-dark);
+    text-align: center;
+    margin-bottom: 8px;
+    font-weight: 500;
+    letter-spacing: .3px;
+  }
+
+  .modal-desc {
+    font-size: .92rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  .modal-desc b { color: var(--purple-dark); }
+
+  .mock-inbox {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1.5px solid rgba(30,64,175,.2);
+    box-shadow: 0 8px 24px rgba(30,58,138,.1);
+    margin-bottom: 8px;
+    animation: slideGlowIn .5s ease both;
+  }
+  .mock-inbox-header {
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    padding: 8px 14px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .mock-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .mock-dot.red    { background: #ff5f57; }
+  .mock-dot.yellow { background: #febc2e; }
+  .mock-dot.green  { background: #28c840; }
+  .mock-inbox-title {
+    margin-left: 10px;
+    color: #fff; font-size: .78rem;
+    font-family: var(--font-accent); font-style: italic;
+    font-weight: 600; letter-spacing: .3px;
+  }
+  .mock-inbox-body { background: #fff; padding: 14px 16px; }
+  .mock-mail-from { font-size: .78rem; color: var(--ink-dim); margin-bottom: 8px; line-height: 1.5; }
+  .mock-mail-from b { color: var(--purple-dark); font-size: .85rem; }
+  .mock-mail-subject {
+    font-weight: 700; color: var(--ink);
+    font-size: .88rem;
+  }
+  .mock-mail-content {
+    font-size: .86rem; color: var(--ink-soft);
+    border-top: 1px dashed rgba(30,64,175,.2);
+    padding-top: 10px;
+    text-align: center;
+  }
+  .mock-code {
+    font-family: var(--font-brand);
+    font-size: 1.8rem;
+    letter-spacing: 8px;
+    color: var(--purple-dark);
+    background: linear-gradient(135deg, rgba(30,64,175,.08), rgba(236,72,153,.06));
+    border: 1.5px dashed var(--purple);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin: 10px auto 6px;
+    display: inline-block;
+    animation: softGlow 2.6s ease-in-out infinite;
+  }
+
+  .modal-footer-link {
+    text-align: center;
+    margin-top: 14px;
+    font-size: .86rem;
+    color: var(--ink-soft);
+    font-family: var(--font-accent);
+    font-style: italic;
+  }
+  .modal-footer-link button {
+    background: none; border: none;
+    background: linear-gradient(135deg, var(--purple-dark), var(--pink));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700; cursor: pointer;
+    font-size: inherit; padding: 0 4px;
+    font-family: var(--font-accent);
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-color: rgba(30,64,175,.4);
+  }
+  .modal-footer-link button:hover { text-decoration-color: var(--pink); }
+
+  footer.site-footer {
+    background: linear-gradient(135deg, #0b1e3f 0%, #1e3a8a 50%, #0f172a 100%);
+    color: rgba(255,255,255,.85);
+    padding:44px 24px 20px; font-size:.86rem;
+    position:relative; overflow:hidden;
+  }
+  footer.site-footer::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:4px;
+    background: linear-gradient(90deg, var(--purple-dark), var(--purple), var(--cyan), var(--pink), var(--gold), var(--purple-dark));
+    background-size: 300% 100%;
+    animation: rainbowShift 8s ease infinite;
+  }
+  footer.site-footer::after {
+    content:""; position:absolute; bottom:-100px; right:-100px;
+    width:300px; height:300px; border-radius:50%;
+    background: radial-gradient(circle, rgba(236,72,153,.16), transparent 70%);
+    animation: floatSlow 12s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .footer-grid {
+    max-width:1080px; margin:0 auto; display:grid;
+    grid-template-columns:2fr 1fr 1fr; gap:30px;
+    position:relative; z-index:1;
+  }
+  @media (max-width:700px) { .footer-grid { grid-template-columns:1fr; } }
+  footer h5 {
+    color: var(--gold-light); font-size:1.1rem; margin-bottom:12px;
+    font-weight:500; letter-spacing: 1px;
+    font-family: var(--font-heading);
+    font-style: italic;
+    text-shadow: 0 0 20px rgba(229,197,99,.35);
+  }
+  footer a {
+    color: rgba(255,255,255,.8); text-decoration:none;
+    display:block; padding:5px 0;
+    transition: color .3s ease, transform .3s ease;
+    position:relative; width:fit-content;
+    font-weight: 500;
+  }
+  footer a:hover { color: var(--gold-light); transform: translateX(6px); }
+  .copyright {
+    border-top:1px solid rgba(30,64,175,.2);
+    margin-top:28px; padding-top:16px;
+    text-align:center; font-size:.88rem;
+    color: rgba(255,255,255,.55);
+    position:relative; z-index:1;
+    font-style: italic;
+  }
+
+  #toast {
+    position:fixed; bottom:96px; left:50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--purple-dark), var(--purple));
+    color:#fff; padding:14px 28px; border-radius:30px;
+    font-size:.94rem; font-weight:500;
+    box-shadow: 0 16px 40px rgba(30,58,138,.45), inset 0 0 0 1.5px rgba(255,255,255,.25);
+    display:none; z-index:9999;
+    max-width: 90vw; text-align: center;
+    font-family: var(--font-accent);
+    font-style: italic; letter-spacing: .3px;
+  }
+  #toast.show { display:block; animation: toastIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+  #toast.hide { animation: toastOut .4s ease both; }
+
+  @media (max-width:520px) {
+    .landing-left h1 { font-size: 2.1rem; }
+    .landing-left p { font-size: .95rem; }
+    .auth-card { padding: 24px 20px; }
+    .hero h2 { font-size:1.9rem; }
+    .hero { padding:55px 18px 75px; }
+    .card { padding:20px; }
+    .brand h1 { font-size:1.15rem; }
+    .brand p { font-size:.82rem; }
+    .topbar { font-size:.72rem; padding:7px 14px; }
+    .topbar a { margin-right:10px; }
+    nav.mainnav {
+      overflow-x: auto; flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    nav.mainnav::-webkit-scrollbar { display: none; }
+    nav.mainnav a { white-space: nowrap; padding:9px 14px; font-size:.84rem; flex-shrink:0; }
+    .hero-cta { flex-direction: column; align-items: stretch; padding: 0 8px; }
+    .hero-cta .cta-btn { justify-content: center; }
+    #music-toggle { bottom: 16px; right: 16px; width: 54px; height: 54px; }
+    #music-toggle svg.cd-icon { width: 44px; height: 44px; }
+    .logo { width: 48px; height: 48px; font-size: .95rem; }
+    .cal-day { font-size: .78rem; border-radius: 10px; }
+    .cal-title { font-size: 1.1rem; }
+    .calendar-widget { padding: 14px 12px 12px; }
+    .cal-weekdays { font-size: .7rem; }
+    .entry-item { padding: 10px 12px; gap: 10px; }
+
+    .sticker-main { font-size: 2.2rem; }
+    .welcome-sticker { padding: 6px 55px 12px 24px; }
+    .welcome-greet { font-size: 1.7rem; }
+    .id-card { aspect-ratio: auto; padding-bottom: 60px; }
+    .id-card-body { grid-template-columns: 72px 1fr; }
+    .id-card-photo { width: 72px; height: 92px; }
+    .id-name { font-size: 1.1rem; }
+    .id-card-footer { position: relative; bottom: auto; left: auto; right: auto; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,.3); }
+    .modal-card { padding: 26px 20px; }
+    .modal-title { font-size: 1.3rem; }
+    .mock-code { font-size: 1.5rem; letter-spacing: 6px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="cursor-glow"></div>
+
+<button id="music-toggle" class="paused" onclick="toggleMusic()" aria-label="Toggle musik piano" title="Piano instrumental · Ghibli">
+  <svg class="cd-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="cdRainbow" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"   stop-color="#c084fc"/>
+        <stop offset="18%"  stop-color="#f9a8d4"/>
+        <stop offset="35%"  stop-color="#f1f5f9"/>
+        <stop offset="52%"  stop-color="#7dd3fc"/>
+        <stop offset="72%"  stop-color="#a7f3d0"/>
+        <stop offset="88%"  stop-color="#fde68a"/>
+        <stop offset="100%" stop-color="#c084fc"/>
+      </linearGradient>
+      <radialGradient id="cdShine" cx="35%" cy="30%" r="60%">
+        <stop offset="0%"  stop-color="rgba(255,255,255,.9)"/>
+        <stop offset="55%" stop-color="rgba(255,255,255,0)"/>
+      </radialGradient>
+    </defs>
+
+    <circle cx="23" cy="23" r="13" fill="url(#cdRainbow)" opacity="0.95"/>
+    <circle cx="23" cy="23" r="13" fill="url(#cdShine)"/>
+    <circle cx="23" cy="23" r="13" fill="none" stroke="#475569" stroke-width="1.4"/>
+
+    <rect x="13" y="16" width="2" height="2" fill="#fbcfe8" opacity=".9"/>
+    <rect x="31" y="19" width="2" height="2" fill="#bae6fd" opacity=".9"/>
+    <rect x="28" y="30" width="2" height="2" fill="#bbf7d0" opacity=".9"/>
+    <rect x="17" y="30" width="2" height="2" fill="#fde68a" opacity=".9"/>
+
+    <circle cx="23" cy="23" r="5.4" fill="#1f2937"/>
+    <circle cx="23" cy="23" r="2.4" fill="#ffffff"/>
+
+    <rect x="14" y="15" width="2" height="2" fill="rgba(255,255,255,.85)"/>
+    <rect x="16" y="13" width="2" height="2" fill="rgba(255,255,255,.75)"/>
+    <rect x="18" y="12" width="4" height="2" fill="rgba(255,255,255,.7)"/>
+
+    <g class="note-group" fill="#0f172a">
+      <rect x="4" y="6" width="2" height="15"/>
+      <rect x="4" y="6" width="10" height="2.4"/>
+      <rect x="12" y="6" width="2" height="7.5"/>
+      <rect x="1.5" y="19" width="6" height="4"/>
+      <rect x="9.5" y="11.5" width="6" height="4"/>
+    </g>
+  </svg>
+</button>
+
+<!-- ================= LANDING ================= -->
+<div id="landing">
+  <div class="landing-wrap">
+    <div class="landing-left">
+      <span class="hero-badge">Teman Digital Anda ✦ DiaMate</span>
+      <h1>Selamat Datang di <span>DiaMate</span></h1>
+      <p>Ruang tenang untuk memahami dan mengontrol Diabetes Melitus tipe 2. DiaMate hadir sebagai teman digital setia perjalanan kesehatan Anda.</p>
+      <p class="landing-sub">Buat akun atau masuk untuk mulai menjelajah fitur edukasi, tracker, dan diary kesehatan Anda.</p>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs" role="tablist">
+        <button type="button" id="tabLogin" class="active" onclick="switchAuth('login')">Masuk</button>
+        <button type="button" id="tabRegister" onclick="switchAuth('register')">Buat Akun</button>
+      </div>
+
+      <form class="auth-form" id="formLogin" onsubmit="event.preventDefault(); doLogin();">
+        <div class="form-group">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="nama@email.com" autocomplete="email">
+          <div class="error-msg" id="errLoginEmail">Email tidak boleh kosong</div>
+        </div>
+        <div class="form-group">
+          <label for="loginPass">Kata Sandi</label>
+          <div class="input-wrap">
+            <input type="password" id="loginPass" placeholder="Kata sandi Anda" autocomplete="current-password">
+            <button type="button" class="toggle-pass" onclick="togglePassword('loginPass', this)" aria-label="Lihat kata sandi">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="error-msg" id="errLoginPass">Kata sandi tidak boleh kosong</div>
+        </div>
+        <div class="forgot-link-wrap">
+          <button type="button" onclick="openForgotModal()">Lupa kata sandi?</button>
+        </div>
+        <button type="submit" class="btn-auth">Masuk</button>
+        <div class="auth-footer">
+          Belum punya akun? <button type="button" onclick="switchAuth('register')">Daftar sekarang</button>
+        </div>
+      </form>
+
+      <form class="auth-form hide" id="formRegister" onsubmit="event.preventDefault(); doRegister();">
+        <div class="form-group">
+          <label for="regName">Nama Lengkap</label>
+          <input type="text" id="regName" placeholder="Nama Anda" autocomplete="name">
+          <div class="error-msg" id="errRegName">Nama minimal 3 karakter</div>
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" placeholder="nama@email.com" autocomplete="email">
+          <div class="error-msg" id="errRegEmail">Format email tidak valid</div>
+        </div>
+        <div class="form-group">
+          <label for="regPass">Kata Sandi</label>
+          <div class="input-wrap">
+            <input type="password" id="regPass" placeholder="Minimal 6 karakter" autocomplete="new-password">
+            <button type="button" class="toggle-pass" onclick="togglePassword('regPass', this)" aria-label="Lihat kata sandi">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="input-hint">Gunakan kata sandi minimal 6 karakter</div>
+          <div class="error-msg" id="errRegPass">Kata sandi minimal 6 karakter</div>
+        </div>
+        <div class="form-group">
+          <label for="regPass2">Konfirmasi Kata Sandi</label>
+          <div class="input-wrap">
+            <input type="password" id="regPass2" placeholder="Ulangi kata sandi" autocomplete="new-password">
+            <button type="button" class="toggle-pass" onclick="togglePassword('regPass2', this)" aria-label="Lihat kata sandi">
+              <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <div class="error-msg" id="errRegPass2">Konfirmasi kata sandi tidak cocok</div>
+        </div>
+        <button type="submit" class="btn-auth">Buat Akun ✦</button>
+        <div class="auth-footer">
+          Sudah punya akun? <button type="button" onclick="switchAuth('login')">Masuk di sini</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app">
+  <div class="topbar">
+    <div>
+      <a href="#">Portal Akademik</a>
+      <a href="#">Perpustakaan</a>
+      <a href="#">Kontak</a>
+    </div>
+    <div class="user-area">
+      <div class="user-chip">
+        <span class="user-avatar" id="userAvatar">U</span>
+        <span id="userName">Pengguna</span>
+      </div>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="logo">DM</div>
+    <div class="brand">
+      <h1>DiaMate</h1>
+      <p>Teman Digital Anda — Edukasi &amp; Pendamping Kesehatan</p>
+    </div>
+  </header>
+
+  <nav class="mainnav">
+    <a href="#" class="active" onclick="showPage('beranda', this); return false;">Beranda</a>
+    <a href="#" onclick="showPage('profil', this); return false;">Profil</a>
+    <a href="#" onclick="showPage('materi', this); return false;">Materi</a>
+    <a href="#" onclick="showPage('glucose', this); return false;">Glucose</a>
+    <a href="#" onclick="showPage('reminder', this); return false;">Reminder</a>
+    <a href="#" onclick="showPage('tips', this); return false;">Tips</a>
+    <a href="#" onclick="showPage('checklist', this); return false;">Diary</a>
+    <a href="#" onclick="showPage('kuis', this); return false;">Kuis</a>
+    <a href="#" onclick="showPage('emergency', this); return false;">Emergency</a>
+    <a href="#" onclick="showPage('referensi', this); return false;">Referensi</a>
+    <a href="#" onclick="showPage('tentang', this); return false;">Tentang</a>
+  </nav>
+
+  <section class="hero" id="hero">
+    <div class="bubble b1"></div>
+    <div class="bubble b2"></div>
+    <div class="bubble b3"></div>
+    <div class="bubble b4"></div>
+    <span class="deco-star s1">✦</span>
+    <span class="deco-star s2">✧</span>
+    <span class="deco-star s3">✦</span>
+    <span class="deco-star s4">✧</span>
+
+    <span class="badge">Teman Digital Anda ✦ DiaMate</span>
+    <h2>Ayo <span>Kontrol DM</span> Bersama DiaMate</h2>
+    <p>Panduan digital yang menenangkan untuk pasien Diabetes Melitus tipe 2 dan keluarga.</p>
+
+    <div class="hero-cta">
+      <button class="cta-btn" onclick="scrollToTarget('kartu-jadwal')">
+        Lihat Jadwal Pemeriksaan <span class="arrow">→</span>
+      </button>
+      <button class="cta-btn secondary" onclick="showPage('glucose')">
+        Cek Gula Darah
+      </button>
+      <button class="cta-btn secondary" onclick="showPage('checklist')">
+        Diary Saya
+      </button>
+    </div>
+
+    <svg class="hero-wave" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 L1440,60 L0,60 Z" fill="rgba(30,64,175,.1)"/>
+      <path d="M0,40 C240,70 480,10 720,40 C960,70 1200,10 1440,40 L1440,60 L0,60 Z" fill="rgba(236,72,153,.1)"/>
+    </svg>
+  </section>
+
+  <div class="container">
+
+    <section id="beranda" class="page active">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Selamat Datang</span></div>
+
+      <div class="card reveal welcome-card">
+        <div class="welcome-sticker">
+          <span class="sticker-hai">hai!</span>
+          <span class="sticker-star-inline">★</span>
+          <span class="sticker-main">welcome!</span>
+          <span class="sticker-qmark">?</span>
+          <span class="sticker-qmark second">?</span>
+        </div>
+
+        <h2 class="welcome-greet">Halo, <span id="welcomeName">Pengguna</span>!</h2>
+        <p class="welcome-sub">Selamat datang di <b>DiaMate</b> ✦ Teman digital perjalanan diabetes Anda</p>
+
+        <div class="welcome-info">
+          <div class="info-chip">
+            <span class="info-label">Email</span>
+            <span class="info-value" id="welcomeEmail">—</span>
+          </div>
+          <div class="info-chip">
+            <span class="info-label">ID Anggota</span>
+            <span class="info-value" id="welcomeId">—</span>
+          </div>
+          <div class="info-chip">
+            <span class="info-label">Bergabung</span>
+            <span class="info-value" id="welcomeSince">—</span>
+          </div>
+        </div>
+
+        <div class="welcome-actions">
+          <button class="jump-btn" onclick="showPage('profil')">Lihat Profil &amp; ID Card <span class="arrow">→</span></button>
+          <button class="jump-btn" onclick="showPage('glucose')">Glucose Tracker <span class="arrow">→</span></button>
+          <button class="jump-btn" onclick="showPage('reminder')">Reminder <span class="arrow">→</span></button>
+          <button class="jump-btn" onclick="showPage('checklist')">Diary Harian <span class="arrow">→</span></button>
+        </div>
+      </div>
+    </section>
+
+    <section id="profil" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Profil</span></div>
+
+      <div class="card reveal">
+        <h3>Profil Saya</h3>
+
+        <div class="profile-top">
+          <div class="profile-avatar-wrap">
+            <div class="profile-avatar" id="profileAvatarPreview">
+              <span class="avatar-placeholder">Foto</span>
+            </div>
+            <label class="upload-btn" for="avatarInput" title="Pilih foto">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              Ganti Foto
+            </label>
+            <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+            <button type="button" class="upload-btn" onclick="removeAvatar()" style="background:linear-gradient(135deg, var(--pink-dark), var(--pink)); color:#fff;">
+              Hapus Foto
+            </button>
+          </div>
+
+          <div class="profile-fields">
+            <div class="input-grid">
+              <div class="form-group">
+                <label for="profNickname">Nama Panggilan</label>
+                <input type="text" id="profNickname" placeholder="mis. Dinda" maxlength="30">
+              </div>
+              <div class="form-group">
+                <label for="profBlood">Golongan Darah</label>
+                <select id="profBlood">
+                  <option value="">— Pilih —</option>
+                  <option>A</option><option>B</option><option>AB</option><option>O</option>
+                  <option>Tidak tahu</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="profBirth">Tanggal Lahir</label>
+                <input type="date" id="profBirth">
+              </div>
+              <div class="form-group">
+                <label for="profInsulin">Jenis Terapi / Obat</label>
+                <input type="text" id="profInsulin" placeholder="mis. Metformin 500mg" maxlength="40">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="profNotes">Catatan Kesehatan Singkat</label>
+              <textarea id="profNotes" placeholder="mis. Alergi seafood, rutin cek gula darah pagi..." maxlength="200"></textarea>
+            </div>
+            <button class="btn small" onclick="saveProfile()">Simpan Profil ✦</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card reveal reveal-delay-1">
+        <h3>ID Card DiaMate ✦</h3>
+        <p style="margin-bottom:16px;">Kartu anggota lucu — siap dipakai untuk keperluan komunitas diabetes atau sekadar koleksi.</p>
+
+        <div class="id-card" id="idCard">
+          <div class="id-card-pattern"></div>
+          <div class="id-card-header">
+            <div class="id-card-logo">DM</div>
+            <div class="id-card-brand">
+              <div class="brand-line1">DiaMate</div>
+              <div class="brand-line2">✦ Teman Digital Anda ✦</div>
+            </div>
+            <div class="id-card-chip"></div>
+          </div>
+
+          <div class="id-card-body">
+            <div class="id-card-photo" id="idCardPhoto">
+              <img id="idCardImg" src="" alt="" style="display:none;">
+              <span class="id-card-photo-empty" id="idCardPhotoEmpty">Foto</span>
+            </div>
+            <div class="id-card-info">
+              <div class="id-field">
+                <div class="id-field-label">Nama</div>
+                <div class="id-field-value id-name" id="idCardName">—</div>
+              </div>
+              <div class="id-field">
+                <div class="id-field-label">ID Anggota</div>
+                <div class="id-field-value" id="idCardId">DM-0000</div>
+              </div>
+              <div class="id-field-row">
+                <div class="id-field small">
+                  <div class="id-field-label">Gol. Darah</div>
+                  <div class="id-field-value" id="idCardBlood">—</div>
+                </div>
+                <div class="id-field small">
+                  <div class="id-field-label">Sejak</div>
+                  <div class="id-field-value" id="idCardSince">—</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="id-card-footer">
+            <div class="id-card-idno" id="idCardIdno">DM-0000-0000</div>
+            <div class="id-card-stickers">
+              <span class="id-sticker s-star">★</span>
+              <span class="id-sticker s-heart">♥</span>
+              <span class="id-sticker s-sparkle">✦</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn small" onclick="window.print()">Cetak / Simpan PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="materi" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Materi Edukasi</span></div>
+
+      <div class="card reveal">
+        <h3>Apa Itu Diabetes Melitus?</h3>
+        <p>Diabetes Melitus (DM) adalah penyakit kronis yang ditandai dengan kadar gula darah tinggi karena tubuh tidak dapat memproduksi atau menggunakan insulin secara efektif.</p>
+        <h4>Gejala Umum</h4>
+        <ul>
+          <li>Sering haus dan buang air kecil, terutama malam hari.</li>
+          <li>Mudah lelah dan lemas.</li>
+          <li>Penurunan berat badan tanpa sebab jelas.</li>
+          <li>Luka yang sulit sembuh.</li>
+          <li>Pandangan kabur.</li>
+        </ul>
+        <h4>Penyebab &amp; Faktor Risiko</h4>
+        <ul>
+          <li>Faktor genetik (riwayat keluarga DM).</li>
+          <li>Obesitas atau berat badan berlebih.</li>
+          <li>Kurang aktivitas fisik.</li>
+          <li>Pola makan tinggi gula dan lemak.</li>
+          <li>Usia di atas 45 tahun.</li>
+          <li>Tekanan darah tinggi &amp; kolesterol tinggi.</li>
+        </ul>
+        <h4>Pencegahan</h4>
+        <ul>
+          <li>Jaga berat badan ideal.</li>
+          <li>Rutin olahraga minimal 30 menit/hari.</li>
+          <li>Konsumsi makanan bergizi seimbang.</li>
+          <li>Hindari rokok dan alkohol.</li>
+          <li>Periksa gula darah secara berkala.</li>
+        </ul>
+      </div>
+
+      <div class="card reveal reveal-delay-1" id="kartu-jadwal">
+        <h3>Jadwal Pemeriksaan yang Dianjurkan</h3>
+        <table>
+          <tr><th>Jenis Pemeriksaan</th><th>Frekuensi</th></tr>
+          <tr><td>Gula darah mandiri</td><td>Sesuai anjuran dokter</td></tr>
+          <tr><td>HbA1c</td><td>Setiap 3–6 bulan</td></tr>
+          <tr><td>Tekanan darah</td><td>Setiap kontrol</td></tr>
+          <tr><td>Kolesterol</td><td>1x per tahun</td></tr>
+          <tr><td>Fungsi ginjal</td><td>1x per tahun</td></tr>
+          <tr><td>Pemeriksaan mata</td><td>1x per tahun</td></tr>
+          <tr><td>Pemeriksaan kaki</td><td>Setiap kontrol</td></tr>
+          <tr><td>Kesehatan gigi</td><td>Setiap 6 bulan</td></tr>
+        </table>
+        <button class="jump-btn" onclick="scrollToTarget('kartu-persiapan')">Persiapan Sebelum Kontrol <span class="arrow">→</span></button>
+      </div>
+
+      <div class="card reveal reveal-delay-2" id="kartu-persiapan">
+        <h3>Persiapan Sebelum Kontrol</h3>
+        <ul>
+          <li>Bawa catatan gula darah harian.</li>
+          <li>Bawa daftar obat yang sedang diminum.</li>
+          <li>Siapkan pertanyaan untuk dokter.</li>
+          <li>Datang tepat waktu, puasa jika diminta.</li>
+        </ul>
+        <button class="jump-btn" onclick="scrollToTarget('kartu-obat')">Kepatuhan Minum Obat <span class="arrow">→</span></button>
+      </div>
+
+      <div class="card reveal reveal-delay-3" id="kartu-obat">
+        <h3>Kepatuhan Minum Obat</h3>
+        <ul>
+          <li>Jangan menghentikan obat tanpa konsultasi dokter.</li>
+          <li>Jika lupa, tanyakan aturan minum obat ke tenaga kesehatan.</li>
+          <li>Konsultasikan bila muncul efek samping.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="glucose" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Glucose Tracker</span></div>
+
+      <div class="card reveal">
+        <h3>Glucose Tracker</h3>
+        <p>Catat kadar gula darah Anda untuk memantau pola dan tren kesehatan.</p>
+
+        <div class="input-grid">
+          <div class="form-group">
+            <label for="glucDate">Tanggal</label>
+            <input type="date" id="glucDate">
+          </div>
+          <div class="form-group">
+            <label for="glucTime">Waktu</label>
+            <input type="time" id="glucTime">
+          </div>
+          <div class="form-group">
+            <label for="glucVal">Kadar (mg/dL)</label>
+            <input type="number" id="glucVal" placeholder="mis. 120" min="20" max="600">
+          </div>
+          <div class="form-group">
+            <label for="glucNote">Catatan (opsional)</label>
+            <input type="text" id="glucNote" placeholder="mis. sebelum makan">
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:4px;">
+          <button class="btn small" onclick="addGlucoseEntry()">Simpan Catatan</button>
+          <button class="btn small" style="background:linear-gradient(135deg, var(--pink-dark), var(--pink));" onclick="clearGlucoseEntries()">Hapus Semua</button>
+        </div>
+
+        <div class="glucose-stats" id="glucoseStats"></div>
+        <div class="glucose-list" id="glucoseList"></div>
+      </div>
+    </section>
+
+    <section id="reminder" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Reminder</span></div>
+
+      <div class="card reveal">
+        <h3>Reminder Pemeriksaan &amp; Obat</h3>
+        <p>Atur pengingat untuk pemeriksaan rutin atau konsumsi obat. Pengingat akan ditandai merah saat waktunya tiba.</p>
+
+        <div class="input-grid">
+          <div class="form-group">
+            <label for="remTitle">Judul Pengingat</label>
+            <input type="text" id="remTitle" placeholder="mis. Minum metformin">
+          </div>
+          <div class="form-group">
+            <label for="remDate">Tanggal</label>
+            <input type="date" id="remDate">
+          </div>
+          <div class="form-group">
+            <label for="remTime">Waktu</label>
+            <input type="time" id="remTime">
+          </div>
+        </div>
+
+        <button class="btn small" onclick="addReminder()">Tambah Pengingat</button>
+
+        <div class="reminder-list" id="reminderList"></div>
+      </div>
+    </section>
+
+    <section id="tips" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Healthy Tips</span></div>
+      <div class="card reveal" id="kartu-tips">
+        <h3>Healthy Tips</h3>
+        <div class="alert alert-info"><span class="alert-label">Pengingat</span>Buat alarm pengingat jadwal kontrol di HP.</div>
+        <div class="alert alert-info"><span class="alert-label">Catatan</span>Catat jadwal kontrol di kalender atau buku DM.</div>
+        <div class="alert alert-info"><span class="alert-label">Dukungan</span>Minta keluarga ikut mengingatkan.</div>
+        <div class="alert alert-info"><span class="alert-label">Kontak</span>Simpan nomor kontak faskes atau dokter.</div>
+        <div class="alert alert-info"><span class="alert-label">Transportasi</span>Siapkan transportasi jauh hari sebelum jadwal.</div>
+        <div class="alert alert-info"><span class="alert-label">Buku DM</span>Bawa buku catatan DM setiap kontrol.</div>
+        <div class="alert alert-info"><span class="alert-label">Komunitas</span>Bergabung dengan komunitas DM untuk saling mengingatkan.</div>
+        <button class="jump-btn" onclick="showPage('checklist')">Cek Diary Saya <span class="arrow">→</span></button>
+      </div>
+    </section>
+
+    <section id="checklist" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Health Diary</span></div>
+      <div class="card reveal" id="kartu-checklist">
+        <h3>Health Diary</h3>
+        <p style="margin-bottom:14px;">Pilih tanggal pada kalender, centang aktivitas yang sudah dilakukan, dan tulis catatan harian Anda.</p>
+
+        <div class="calendar-widget" id="calendarWidget">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="calPrev" aria-label="Bulan sebelumnya">‹</button>
+            <div class="cal-title" id="calTitle">—</div>
+            <button type="button" class="cal-nav" id="calNext" aria-label="Bulan berikutnya">›</button>
+          </div>
+          <div class="cal-weekdays">
+            <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-legend">
+            <span><i class="dot dot-full"></i> Checklist penuh</span>
+            <span><i class="dot dot-part"></i> Sebagian</span>
+            <span><i class="dot dot-note"></i> Ada catatan</span>
+            <span><i class="dot" style="background:transparent;border:1.5px solid var(--cyan);"></i> Hari ini</span>
+          </div>
+        </div>
+
+        <div class="checklist-date-label" id="checklistDateLabel">—</div>
+        <div id="daftarChecklist"></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <p id="progress" style="margin-top:12px; font-weight:600; color: var(--purple-dark);"></p>
+
+        <h4 style="margin-top:22px;">Catatan Harian</h4>
+        <div class="form-group">
+          <textarea id="diaryNote" placeholder="Tulis kondisi kesehatan, aktivitas, atau catatan hari ini..." maxlength="500"></textarea>
+        </div>
+        <button class="btn small" onclick="saveDiaryNote()">Simpan Catatan</button>
+      </div>
+    </section>
+
+    <section id="kuis" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Kuis</span></div>
+      <div class="card reveal" id="kartu-kuis">
+        <h3>Kuis Evaluasi</h3>
+        <p style="margin-bottom:16px;">Jawab pertanyaan berikut untuk menguji pemahaman Anda.</p>
+        <form id="formKuis" onsubmit="return false;"></form>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button type="button" class="btn" onclick="periksaKuis()">Periksa Jawaban</button>
+          <button type="button" class="btn small" style="background:linear-gradient(135deg, var(--pink-dark), var(--pink));" onclick="resetKuis()">Ulangi</button>
+        </div>
+        <div id="hasil"></div>
+      </div>
+    </section>
+
+    <section id="emergency" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Emergency Information</span></div>
+
+      <div class="card reveal">
+        <h3>Emergency Information</h3>
+        <p>Simpan kontak darurat dan informasi penting yang dibutuhkan saat kondisi kritis.</p>
+
+        <h4>Kontak Darurat Pribadi</h4>
+        <div class="input-grid">
+          <div class="form-group">
+            <label for="emgName">Nama Kontak</label>
+            <input type="text" id="emgName" placeholder="mis. Ibu / dr. Andi">
+          </div>
+          <div class="form-group">
+            <label for="emgPhone">Nomor Telepon</label>
+            <input type="tel" id="emgPhone" placeholder="mis. 0812xxxxxxx">
+          </div>
+          <div class="form-group">
+            <label for="emgRel">Hubungan</label>
+            <input type="text" id="emgRel" placeholder="mis. Keluarga / Dokter">
+          </div>
+        </div>
+        <button class="btn small" onclick="addEmergencyContact()">Tambah Kontak</button>
+
+        <div class="glucose-list" id="emergencyList" style="margin-top:16px;"></div>
+      </div>
+
+      <div class="card reveal reveal-delay-1">
+        <h3>Nomor Darurat Indonesia</h3>
+        <table>
+          <tr><th>Layanan</th><th>Nomor</th></tr>
+          <tr><td>Ambulans / Gawat Darurat</td><td><b>119</b></td></tr>
+          <tr><td>Polisi</td><td><b>110</b></td></tr>
+          <tr><td>Pemadam Kebakaran</td><td><b>113</b></td></tr>
+          <tr><td>SAR / Basarnas</td><td><b>115</b></td></tr>
+          <tr><td>BPJS Kesehatan</td><td><b>1500 400</b></td></tr>
+        </table>
+      </div>
+
+      <div class="card reveal reveal-delay-2">
+        <h3>Kondisi yang Membutuhkan Pertolongan Medis Segera</h3>
+        <div class="alert alert-danger">
+          <span class="alert-label">Segera Hubungi Bantuan</span>
+          <ul style="margin:6px 0 0;">
+            <li><b>Hipoglikemia berat</b> — gula darah &lt; 70 mg/dL disertai keringat dingin, gemetar, kebingungan, atau pingsan.</li>
+            <li><b>Hiperglikemia berat</b> — gula darah sangat tinggi disertai lemas, mual, napas cepat dan dalam, bau napas buah.</li>
+            <li><b>Ketoasidosis diabetik</b> — nyeri perut hebat, muntah, dehidrasi, penurunan kesadaran.</li>
+            <li><b>Luka kaki diabetik</b> — luka tidak sembuh, menghitam, atau bernanah.</li>
+            <li><b>Komplikasi akut lain</b> — pandangan kabur mendadak, nyeri dada, sesak napas, atau stroke.</li>
+          </ul>
+        </div>
+        <div class="alert alert-warn">
+          <span class="alert-label">Tindakan Pertama</span>
+          Jangan memberi makan/minum jika pasien tidak sadar. Posisikan pasien miring untuk mencegah tersedak. Segera hubungi 119 atau bawa ke IGD terdekat.
+        </div>
+      </div>
+    </section>
+
+    <section id="referensi" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Referensi</span></div>
+      <div class="card reveal">
+        <h3>Referensi Ilmiah</h3>
+        <ol>
+          <li>Perkumpulan Endokrinologi Indonesia (PERKENI). <i>Pedoman Pengelolaan dan Pencegahan Diabetes Melitus Tipe 2 di Indonesia 2021</i>. Jakarta: PB PERKENI; 2021.</li>
+          <li>American Diabetes Association. Standards of Care in Diabetes—2024. <i>Diabetes Care</i>. 2024;47(Suppl 1):S1–S300.</li>
+          <li>Kementerian Kesehatan RI. <i>Pedoman Pengendalian Diabetes Melitus</i>. Jakarta: Kemenkes RI; 2020.</li>
+          <li>International Diabetes Federation. <i>IDF Diabetes Atlas</i>. 10th ed. Brussels: IDF; 2021.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="tentang" class="page">
+      <div class="breadcrumb"><a href="#">Beranda</a> <span>/</span> <span>Tentang</span></div>
+      <div class="card reveal">
+        <h3>Tentang Aplikasi</h3>
+        <p><b>DiaMate</b> adalah aplikasi edukasi dan pendamping kesehatan tentang Diabetes Melitus. Nama DiaMate berasal dari <i>Diabetes</i> dan <i>Mate</i>, yang berarti "teman diabetes".</p>
+        <h4>Akun Anda</h4>
+        <ul>
+          <li><b>Nama:</b> <span id="profilNama">-</span></li>
+          <li><b>Email:</b> <span id="profilEmail">-</span></li>
+          <li><b>Terdaftar:</b> <span id="profilTanggal">-</span></li>
+        </ul>
+        <h4>Fitur Utama</h4>
+        <ul>
+          <li><b>Edukasi:</b> informasi tentang diabetes, gejala, penyebab, risiko, dan pencegahan.</li>
+          <li><b>Glucose Tracker:</b> mencatat dan memantau kadar gula darah.</li>
+          <li><b>Reminder:</b> pengingat pemeriksaan dan penggunaan obat sesuai anjuran tenaga kesehatan.</li>
+          <li><b>Healthy Tips:</b> tips pola hidup sehat.</li>
+          <li><b>Health Diary:</b> catatan aktivitas dan kondisi kesehatan.</li>
+          <li><b>Emergency Information:</b> informasi mengenai kondisi yang membutuhkan pertolongan medis.</li>
+        </ul>
+      </div>
+    </section>
+
+    <aside>
+      <div class="status-box reveal">
+        <div class="angka" id="angkaProgres">0%</div>
+        <small id="statusLabel">Progres Tanggal Terpilih</small>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="widget reveal reveal-delay-1">
+        <h4>Pengingat</h4>
+        <p>Jangan lupa kontrol sesuai jadwal yang diberikan dokter.</p>
+      </div>
+
+      <div class="widget reveal reveal-delay-2">
+        <h4>Jadwal Rutin</h4>
+        <ul>
+          <li>HbA1c: 3–6 bulan</li>
+          <li>Mata: 1x/tahun</li>
+          <li>Ginjal: 1x/tahun</li>
+          <li>Kaki: setiap kontrol</li>
+        </ul>
+      </div>
+
+      <div class="widget reveal reveal-delay-3">
+        <h4>Bantuan Darurat</h4>
+        <p>Hubungi faskes terdekat atau <b>119</b> jika muncul tanda bahaya.</p>
+      </div>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div>
+        <h5>✦ DiaMate</h5>
+        <p>Aplikasi edukasi dan pendamping kesehatan Diabetes Melitus. Teman digital setia Anda dalam perjalanan kontrol DM tipe 2.</p>
+      </div>
+      <div>
+        <h5>✦ Navigasi</h5>
+        <a href="#" onclick="showPage('beranda'); return false;">Beranda</a>
+        <a href="#" onclick="showPage('profil'); return false;">Profil</a>
+        <a href="#" onclick="showPage('glucose'); return false;">Glucose</a>
+        <a href="#" onclick="showPage('reminder'); return false;">Reminder</a>
+      </div>
+      <div>
+        <h5>✦ Kontak</h5>
+        <a href="#">rasilly30@gmail.com</a>
+        <a href="#">(0274) 000-000</a>
+        <a href="#">Tasikmalaya, Indonesia</a>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 DiaMate · Teman Digital Anda · Made with ✦
+    </div>
+  </footer>
+</div>
+
+<!-- ================= MODAL LUPA KATA SANDI ================= -->
+<div id="forgotModal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-labelledby="forgotTitle">
+    <button type="button" class="modal-close" onclick="closeForgotModal()" aria-label="Tutup">×</button>
+
+    <div class="modal-step" id="forgotStep1">
+      <div class="modal-icon">🔑</div>
+      <h3 id="forgotTitle" class="modal-title">Lupa Kata Sandi?</h3>
+      <p class="modal-desc">Masukkan email yang terdaftar. Kami akan mengirimkan kode verifikasi ke email Anda.</p>
+      <div class="form-group">
+        <label for="forgotEmail">Email Terdaftar</label>
+        <input type="email" id="forgotEmail" placeholder="nama@email.com" autocomplete="email">
+        <div class="error-msg" id="errForgotEmail">Email tidak ditemukan</div>
+      </div>
+      <button type="button" class="btn-auth" onclick="handleForgotEmail()">Kirim Kode Verifikasi ✦</button>
+    </div>
+
+    <div class="modal-step hide" id="forgotStep2">
+      <div class="modal-icon">📬</div>
+      <h3 class="modal-title">Email Terkirim</h3>
+      <p class="modal-desc">Kode verifikasi telah dikirim ke <b id="sentToEmail">—</b>. Masukkan 6 digit kode di bawah ini.</p>
+
+      <div class="mock-inbox">
+        <div class="mock-inbox-header">
+          <span class="mock-dot red"></span>
+          <span class="mock-dot yellow"></span>
+          <span class="mock-dot green"></span>
+          <span class="mock-inbox-title">Inbox · DiaMate</span>
+        </div>
+        <div class="mock-inbox-body">
+          <div class="mock-mail-from">
+            <b>DiaMate</b> &lt;no-reply@diamate.id&gt;<br>
+            <span class="mock-mail-subject">Kode Verifikasi Reset Kata Sandi</span>
+          </div>
+          <div class="mock-mail-content">
+            <p>Halo, berikut kode verifikasi Anda:</p>
+            <div class="mock-code" id="mockCode">— — —</div>
+            <p style="font-size:.78rem; color:var(--ink-dim); margin-top:8px;">Kode berlaku 5 menit. Jangan bagikan ke siapa pun.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:14px;">
+        <label for="forgotCode">Kode Verifikasi</label>
+        <input type="text" id="forgotCode" placeholder="6 digit angka" maxlength="6" inputmode="numeric" style="letter-spacing:8px; text-align:center; font-family:var(--font-brand); font-size:1.1rem;">
+        <div class="error-msg" id="errForgotCode">Kode tidak valid atau kedaluwarsa</div>
+      </div>
+      <button type="button" class="btn-auth" onclick="handleForgotCode()">Verifikasi Kode ✦</button>
+      <div class="modal-footer-link">
+        Tidak menerima kode? <button type="button" onclick="resendForgotCode()">Kirim ulang</button>
+      </div>
+    </div>
+
+    <div class="modal-step hide" id="forgotStep3">
+      <div class="modal-icon">🔐</div>
+      <h3 class="modal-title">Kata Sandi Baru</h3>
+      <p class="modal-desc">Buat kata sandi baru untuk akun <b id="resetForEmail">—</b>.</p>
+      <div class="form-group">
+        <label for="newPass">Kata Sandi Baru</label>
+        <div class="input-wrap">
+          <input type="password" id="newPass" placeholder="Minimal 6 karakter" autocomplete="new-password">
+          <button type="button" class="toggle-pass" onclick="togglePassword('newPass', this)" aria-label="Lihat kata sandi">
+            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="error-msg" id="errNewPass">Kata sandi minimal 6 karakter</div>
+      </div>
+      <div class="form-group">
+        <label for="newPass2">Konfirmasi Kata Sandi</label>
+        <div class="input-wrap">
+          <input type="password" id="newPass2" placeholder="Ulangi kata sandi" autocomplete="new-password">
+          <button type="button" class="toggle-pass" onclick="togglePassword('newPass2', this)" aria-label="Lihat kata sandi">
+            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg class="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+        <div class="error-msg" id="errNewPass2">Konfirmasi kata sandi tidak cocok</div>
+      </div>
+      <button type="button" class="btn-auth" onclick="handleNewPassword()">Simpan Kata Sandi Baru ✦</button>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   GLOBAL STATE
+   ========================================================= */
+let audioCtx = null;
+let soundEnabled = true;
+let music = null;
+let globalSynth = null;
+let musicBusy = false;
+let toastTimer = null;
+let scrollTimer = null;
+
+let currentUser = null;
+let lastPersen = 0;
+
+let currentCalDate = new Date();
+let selectedDate = new Date();
+
+let resetState = { email: null, code: null, expiresAt: 0 };
+
+const STORAGE_USERS = 'diamate_users';
+const STORAGE_SESSION = 'diamate_session';
+const STORAGE_RESET = 'diamate_reset_tokens';
+const RESET_EXPIRY_MS = 5 * 60 * 1000;
+const BAR_DURATION = 20.5;
+
+/* =========================================================
+   AUDIO ENGINE
+   ========================================================= */
+function ensureCtx() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch { soundEnabled = false; }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    try { audioCtx.resume(); } catch (e) {}
+  }
+  return audioCtx;
+}
+
+/* Unlock AudioContext pada gesture pertama user (Safari/mobile friendly) */
+function unlockAudioOnce() {
+  ensureCtx();
+  document.removeEventListener('pointerdown', unlockAudioOnce);
+  document.removeEventListener('keydown', unlockAudioOnce);
+  document.removeEventListener('touchstart', unlockAudioOnce);
+}
+document.addEventListener('pointerdown', unlockAudioOnce, { passive: true });
+document.addEventListener('keydown', unlockAudioOnce);
+document.addEventListener('touchstart', unlockAudioOnce, { passive: true });
+
+function playTone(type) {
+  if (!soundEnabled) return;
+  const ctx = ensureCtx();
+  if (!ctx) return;
+  const now = ctx.currentTime;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  const soft = (f1, f2, vol, dur) => {
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(f1, now);
+    osc.frequency.exponentialRampToValueAtTime(f2, now + dur * 0.7);
+    gain.gain.setValueAtTime(vol, now);
+    gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    osc.start(now); osc.stop(now + dur + 0.02);
+  };
+
+  if (type === 'click')      soft(520, 420, 0.06, 0.14);
+  else if (type === 'hover') soft(900, 900, 0.012, 0.06);
+  else if (type === 'toggle') soft(880, 1046, 0.05, 0.14);
+  else if (type === 'transition') soft(330, 620, 0.045, 0.32);
+  else if (type === 'error') soft(280, 160, 0.07, 0.28);
+  else if (type === 'success') {
+    [523.25, 659.25, 783.99].forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f;
+      g.gain.setValueAtTime(0, now + i * 0.09);
+      g.gain.linearRampToValueAtTime(0.07, now + i * 0.09 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.09 + 0.5);
+      o.connect(g); g.connect(ctx.destination);
+      o.start(now + i * 0.09); o.stop(now + i * 0.09 + 0.55);
+    });
+  }
+}
+
+/* =========================================================
+   PIANO SYNTH
+   ========================================================= */
+class PianoSynth {
+  constructor(ctx) {
+    this.ctx = ctx;
+    this.master = ctx.createGain();
+    this.master.gain.value = 0.22;
+    this.dry = ctx.createGain();
+    this.dry.gain.value = 0.75;
+    this.master.connect(this.dry);
+    this.dry.connect(ctx.destination);
+    this.reverb = this._createReverb(5.0, 2.6);
+    this.reverbGain = ctx.createGain();
+    this.reverbGain.gain.value = 0.55;
+    this.master.connect(this.reverb);
+    this.reverb.connect(this.reverbGain);
+    this.reverbGain.connect(ctx.destination);
+    this.activeOscillators = new Set();
+    this.generation = 0;
+  }
+  _createReverb(seconds, decay) {
+    const rate = this.ctx.sampleRate;
+    const length = Math.floor(rate * seconds);
+    const impulse = this.ctx.createBuffer(2, length, rate);
+    for (let ch = 0; ch < 2; ch++) {
+      const data = impulse.getChannelData(ch);
+      for (let i = 0; i < length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+      }
+    }
+    const conv = this.ctx.createConvolver();
+    conv.buffer = impulse;
+    return conv;
+  }
+  playNote(freq, when, duration, velocity) {
+    const ctx = this.ctx;
+    const t = when ?? ctx.currentTime;
+    const vel = (velocity ?? 1) * 0.17;
+    const noteGain = ctx.createGain();
+    noteGain.connect(this.master);
+    noteGain.gain.setValueAtTime(0, t);
+    noteGain.gain.linearRampToValueAtTime(vel, t + 0.014);
+    noteGain.gain.exponentialRampToValueAtTime(vel * 0.6, t + 0.22);
+    noteGain.gain.exponentialRampToValueAtTime(vel * 0.2, t + 1.2);
+    noteGain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
+    const harmonics = [
+      { mult: 1,    gain: 1.00, type: 'sine' },
+      { mult: 2,    gain: 0.38, type: 'sine' },
+      { mult: 3,    gain: 0.15, type: 'sine' },
+      { mult: 4,    gain: 0.08, type: 'triangle' },
+      { mult: 5.4,  gain: 0.045, type: 'sine' },
+      { mult: 7.2,  gain: 0.02, type: 'sine' }
+    ];
+    harmonics.forEach(h => {
+      const osc = ctx.createOscillator();
+      const g = ctx.createGain();
+      osc.type = h.type;
+      osc.frequency.value = freq * h.mult;
+      osc.detune.value = (Math.random() - 0.5) * 4;
+      g.gain.value = h.gain;
+      osc.connect(g);
+      g.connect(noteGain);
+      this.activeOscillators.add(osc);
+      osc.onended = () => this.activeOscillators.delete(osc);
+      osc.start(t);
+      osc.stop(t + duration + 0.3);
+    });
+  }
+  stopAll() {
+    const now = this.ctx.currentTime;
+    this.activeOscillators.forEach(osc => {
+      try { osc.stop(now + 0.02); } catch (e) {}
+    });
+    this.activeOscillators.clear();
+  }
+  fadeOut(duration) {
+    const now = this.ctx.currentTime;
+    const g = this.master.gain;
+    try {
+      g.cancelScheduledValues(now);
+      g.setValueAtTime(g.value, now);
+      g.linearRampToValueAtTime(0.0001, now + duration);
+    } catch (e) {}
+  }
+  resetGain() {
+    const now = this.ctx.currentTime;
+    try {
+      this.master.gain.cancelScheduledValues(now);
+      this.master.gain.setValueAtTime(0.22, now);
+    } catch (e) {}
+  }
+}
+
+const P = {
+  A2: 110.00, C3: 130.81, D3: 146.83, E3: 164.81, F3: 174.61, G3: 196.00, A3: 220.00, B3: 246.94,
+  C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23, G4: 392.00, A4: 440.00, B4: 493.88,
+  C5: 523.25, D5: 587.33, E5: 659.25, F5: 698.46, G5: 783.99, A5: 880.00
+};
+
+const PROGRESSION = [
+  { bass: P.F3, arp: [P.C4, P.F4, P.A4, P.C5, P.E5, P.C5, P.A4], color: P.E5, mel: [P.A4, P.C5, P.F5, P.E5] },
+  { bass: P.G3, arp: [P.B3, P.D4, P.G4, P.B4, P.D5, P.B4, P.G4], color: P.F5, mel: [P.D5, P.B4, P.G4, P.D5] },
+  { bass: P.E3, arp: [P.B3, P.E4, P.G4, P.B4, P.D5, P.B4, P.G4], color: P.D5, mel: [P.E5, P.B4, P.G4, P.E5] },
+  { bass: P.A2, arp: [P.C4, P.E4, P.A4, P.C5, P.E5, P.C5, P.A4], color: P.G5, mel: [P.C5, P.E5, P.A5, P.E5] },
+  { bass: P.D3, arp: [P.A3, P.D4, P.F4, P.A4, P.C5, P.A4, P.F4], color: P.E5, mel: [P.D5, P.F5, P.A4, P.C5] },
+  { bass: P.G3, arp: [P.B3, P.D4, P.G4, P.B4, P.D5, P.B4, P.G4], color: P.F5, mel: [P.B4, P.D5, P.G5, P.F5] },
+  { bass: P.C3, arp: [P.G3, P.C4, P.E4, P.G4, P.B4, P.G4, P.E4], color: P.B4, mel: [P.E5, P.G5, P.C5, P.B4] },
+  { bass: P.A2, arp: [P.C4, P.E4, P.A4, P.C5, P.E5, P.C5, P.A4], color: P.E5, mel: [P.C5, P.A4, P.E5, P.C5] },
+  { bass: P.F3, arp: [P.A3, P.C4, P.F4, P.A4, P.C5, P.A4, P.F4], color: P.G4, mel: [P.F4, P.A4, P.C5, P.A4] },
+  { bass: P.E3, arp: [P.G3, P.B3, P.E4, P.G4, P.B4, P.G4, P.E4], color: P.F4, mel: [P.E5, P.G4, P.B4, P.E5] },
+  { bass: P.D3, arp: [P.F3, P.A3, P.D4, P.F4, P.A4, P.F4, P.D4], color: P.E4, mel: [P.D5, P.F4, P.A4, P.D5] },
+  { bass: P.C3, arp: [P.E3, P.G3, P.C4, P.E4, P.G4, P.E4, P.C4], color: P.D4, mel: [P.C5, P.E4, P.G4, P.C5] },
+  { bass: P.F3, arp: [P.C4, P.F4, P.A4, P.C5, P.E5, P.C5, P.A4], color: P.E5, mel: [P.A4, P.C5, P.E5, P.F5] },
+  { bass: P.G3, arp: [P.B3, P.D4, P.G4, P.B4, P.D5, P.B4, P.G4], color: P.D5, mel: [P.B4, P.D5, P.G5, P.B4] },
+  { bass: P.C3, arp: [P.G3, P.C4, P.E4, P.G4, P.C5, P.G4, P.E4], color: P.B4, mel: [P.E5, P.G5, P.C5, P.G5] },
+  { bass: P.G3, arp: [P.B3, P.D4, P.G4, P.B4, P.D5, P.B4, P.G4], color: P.F5, mel: [P.D5, P.B4, P.G4, P.D5] }
+];
+
+/* =========================================================
+   PIANO PLAYER — absolute-time scheduling
+   ========================================================= */
+class PianoPlayer {
+  constructor(synth) {
+    this.synth = synth;
+    this.ctx = synth.ctx;
+    this.playing = false;
+    this.idx = 0;
+    this.timer = null;
+    this.generation = 0;
+    this.originTime = 0;
+  }
+  start() {
+    if (this.playing) return;
+    this.playing = true;
+    this.generation++;
+    this.idx = 0;
+    this.originTime = this.ctx.currentTime + 0.2;
+    this._tick();
+  }
+  _tick() {
+    if (!this.playing) return;
+    const myGen = this.generation;
+    const now = this.ctx.currentTime;
+    while (this.originTime + this.idx * BAR_DURATION < now + 1.5) {
+      const barStart = this.originTime + this.idx * BAR_DURATION;
+      const chord = PROGRESSION[this.idx % PROGRESSION.length];
+      this._scheduleChord(chord, barStart);
+      this.idx++;
+    }
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      if (this.generation !== myGen || !this.playing) return;
+      this._tick();
+    }, 800);
+  }
+  _scheduleChord(chord, now) {
+    const bar = BAR_DURATION;
+    this.synth.playNote(chord.bass, now, 18, 0.82);
+    this.synth.playNote(chord.bass * 2, now + 0.04, 15, 0.28);
+
+    const spacing = (bar - 4) / (chord.arp.length + 1.5);
+    chord.arp.forEach((freq, i) => {
+      const t = now + 0.7 + i * spacing;
+      const vel = 0.45 + Math.random() * 0.15;
+      this.synth.playNote(freq, t, 5, vel);
+    });
+
+    this.synth.playNote(chord.color, now + 6.5, 4.5, 0.36);
+
+    chord.mel.forEach((freq, i) => {
+      const t = now + 2 + i * 3.2;
+      this.synth.playNote(freq, t, 4, 0.38 + Math.random() * 0.1);
+    });
+
+    if (Math.random() < 0.65) {
+      const shimmer = chord.arp[Math.floor(Math.random() * chord.arp.length)] * 2;
+      this.synth.playNote(shimmer, now + 10 + Math.random() * 6, 4.5, 0.22);
+    }
+    if (Math.random() < 0.4) {
+      const sparkle = chord.mel[Math.floor(Math.random() * chord.mel.length)] * 2;
+      this.synth.playNote(sparkle, now + 14 + Math.random() * 4, 4, 0.18);
+    }
+  }
+  stop() {
+    this.playing = false;
+    this.generation++;
+    clearTimeout(this.timer);
+    this.timer = null;
+  }
+}
+
+/* =========================================================
+   MUSIC CONTROL
+   ========================================================= */
+function stopMusic() {
+  const btn = document.getElementById('music-toggle');
+  if (!music) {
+    if (btn) btn.classList.add('paused');
+    return;
+  }
+  music.stop();
+  music = null;
+  if (globalSynth) {
+    globalSynth.fadeOut(0.4);
+    setTimeout(() => {
+      if (!music && globalSynth) {
+        globalSynth.stopAll();
+        globalSynth.resetGain();
+      }
+    }, 500);
+  }
+  if (btn) btn.classList.add('paused');
+}
+
+function toggleMusic() {
+  if (musicBusy) return;
+  musicBusy = true;
+  setTimeout(() => { musicBusy = false; }, 600);
+
+  const btn = document.getElementById('music-toggle');
+  const ctx = ensureCtx();
+  if (!ctx) { showToast('Audio tidak tersedia di browser ini'); musicBusy = false; return; }
+
+  if (music && music.playing) {
+    stopMusic();
+    playTone('toggle');
+    showToast('Piano dijeda');
+  } else {
+    if (!globalSynth) globalSynth = new PianoSynth(ctx);
+    globalSynth.stopAll();
+    globalSynth.resetGain();
+    music = new PianoPlayer(globalSynth);
+    music.start();
+    if (btn) btn.classList.remove('paused');
+    playTone('toggle');
+    showToast('Piano dinyalakan ✦');
+  }
+}
+
+/* =========================================================
+   STAR SCROLL
+   ========================================================= */
+const STAR_CHARS = ['✦', '✧', '★', '✩', '✦'];
+const STAR_COLORS = ['#1e40af', '#ec4899', '#0ea5e9', '#d4af37', '#7dd3fc'];
+
+let lastScrollY = window.scrollY;
+let lastStarTime = 0;
+
+window.addEventListener('scroll', () => {
+  const now = Date.now();
+  const currentY = window.scrollY;
+  const scrollingDown = currentY > lastScrollY;
+  const delta = Math.abs(currentY - lastScrollY);
+
+  if (scrollingDown && delta > 6 && now - lastStarTime > 90) {
+    lastStarTime = now;
+    const count = delta > 40 ? 2 : 1;
+    for (let i = 0; i < count; i++) setTimeout(() => spawnStar(), i * 60);
+  }
+  lastScrollY = currentY;
+}, { passive: true });
+
+function spawnStar() {
+  const star = document.createElement('div');
+  star.className = 'scroll-star';
+  star.textContent = STAR_CHARS[Math.floor(Math.random() * STAR_CHARS.length)];
+  star.style.left = (Math.random() * 92 + 4) + 'vw';
+  star.style.top = (Math.random() * 60 + 30) + 'vh';
+  star.style.color = STAR_COLORS[Math.floor(Math.random() * STAR_COLORS.length)];
+  star.style.fontSize = (Math.random() * 14 + 10) + 'px';
+  star.style.textShadow = `0 0 12px ${star.style.color}`;
+  star.style.animationDuration = (Math.random() * 1 + 1.8) + 's';
+  document.body.appendChild(star);
+  setTimeout(() => star.remove(), 2600);
+}
+
+/* =========================================================
+   USER & SESSION
+   ========================================================= */
+function userKey(base) {
+  const id = currentUser ? currentUser.email : 'guest';
+  return `${base}_${id}`;
+}
+
+function hashPass(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = ((h << 5) - h) + str.charCodeAt(i);
+    h |= 0;
+  }
+  return 'h' + Math.abs(h).toString(36);
+}
+
+function getUsers() { try { return JSON.parse(localStorage.getItem(STORAGE_USERS) || '[]'); } catch { return []; } }
+function saveUsers(u) { localStorage.setItem(STORAGE_USERS, JSON.stringify(u)); }
+function getSession() { try { return JSON.parse(localStorage.getItem(STORAGE_SESSION) || 'null'); } catch { return null; } }
+function setSession(u) { localStorage.setItem(STORAGE_SESSION, JSON.stringify(u)); }
+function clearSession() { localStorage.removeItem(STORAGE_SESSION); }
+
+function showToast(msg, duration = 2400) {
+  const toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.remove('hide', 'show');
+  void toast.offsetWidth;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+    toast.classList.add('hide');
+    setTimeout(() => toast.classList.remove('hide'), 450);
+  }, duration);
+}
+
+function togglePassword(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isVisible = input.type === 'text';
+  input.type = isVisible ? 'password' : 'text';
+  btn.classList.toggle('active', !isVisible);
+  btn.setAttribute('aria-label', isVisible ? 'Lihat kata sandi' : 'Sembunyikan kata sandi');
+  playTone('toggle');
+  const pos = input.value.length;
+  input.focus();
+  try { input.setSelectionRange(pos, pos); } catch (e) {}
+}
+
+/* ============ CURSOR GLOW ============ */
+const glow = document.getElementById('cursor-glow');
+let glowX = window.innerWidth/2, glowY = window.innerHeight/2;
+let glowTX = glowX, glowTY = glowY;
+
+function updateGlow() {
+  glowX += (glowTX - glowX) * 0.14;
+  glowY += (glowTY - glowY) * 0.14;
+  glow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%,-50%)`;
+  requestAnimationFrame(updateGlow);
+}
+window.addEventListener('pointermove', (e) => {
+  glowTX = e.clientX; glowTY = e.clientY;
+  if (glow.style.opacity !== '1') glow.style.opacity = '1';
+}, { passive: true });
+document.addEventListener('pointerleave', () => { glow.style.opacity = '0'; });
+document.addEventListener('pointerenter', () => { glow.style.opacity = '1'; });
+updateGlow();
+
+/* ============ SCROLL REVEAL ============ */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -50px 0px' });
+
+function initReveals() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (!el.classList.contains('visible')) revealObserver.observe(el);
+  });
+}
+function refreshRevealsInView() {
+  const selector = '.page.active .reveal:not(.visible), aside .reveal:not(.visible)';
+  document.querySelectorAll(selector).forEach(el => {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 60 && rect.bottom > 0) {
+      setTimeout(() => el.classList.add('visible'), 40);
+    }
+  });
+}
+
+/* ============ SMOOTH SCROLL ============ */
+function scrollToTarget(id) {
+  const target = document.getElementById(id);
+  if (!target) return;
+  const page = target.closest('.page');
+  const needsPageChange = page && !page.classList.contains('active');
+
+  if (needsPageChange) { showPage(page.id); playTone('transition'); }
+  else { playTone('click'); }
+
+  setTimeout(() => {
+    const navHeight = document.querySelector('nav.mainnav')?.offsetHeight || 60;
+    const y = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    target.classList.add('visible');
+    target.classList.remove('highlight');
+    void target.offsetWidth;
+    target.classList.add('highlight');
+    setTimeout(() => target.classList.remove('highlight'), 1800);
+    const title = target.querySelector('h3');
+    if (title) showToast(title.textContent.slice(0, 40));
+  }, needsPageChange ? 500 : 80);
+  return false;
+}
+
+/* ============ AUTH ============ */
+function switchAuth(mode) {
+  const tabLogin = document.getElementById('tabLogin');
+  const tabRegister = document.getElementById('tabRegister');
+  const formLogin = document.getElementById('formLogin');
+  const formRegister = document.getElementById('formRegister');
+  playTone('click');
+
+  if (mode === 'login') {
+    tabLogin.classList.add('active');
+    tabRegister.classList.remove('active');
+    formLogin.classList.remove('hide');
+    formRegister.classList.add('hide');
+    formLogin.style.animation = 'none';
+    void formLogin.offsetWidth;
+    formLogin.style.animation = 'fadeInUp .4s ease both';
+  } else {
+    tabRegister.classList.add('active');
+    tabLogin.classList.remove('active');
+    formRegister.classList.remove('hide');
+    formLogin.classList.add('hide');
+    formRegister.style.animation = 'none';
+    void formRegister.offsetWidth;
+    formRegister.style.animation = 'fadeInUp .4s ease both';
+  }
+  clearErrors();
+}
+
+function setError(inputId, errId, show, customText) {
+  const input = document.getElementById(inputId);
+  const err = document.getElementById(errId);
+  if (!input || !err) return;
+  if (show) {
+    input.classList.add('error');
+    err.classList.add('show');
+    if (customText) err.textContent = customText;
+  } else {
+    input.classList.remove('error');
+    err.classList.remove('show');
+  }
+}
+
+function clearErrors() {
+  document.querySelectorAll('.form-group input').forEach(i => i.classList.remove('error'));
+  document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+  const defaults = {
+    errLoginEmail: 'Email tidak boleh kosong',
+    errLoginPass: 'Kata sandi tidak boleh kosong',
+    errRegName: 'Nama minimal 3 karakter',
+    errRegEmail: 'Format email tidak valid',
+    errRegPass: 'Kata sandi minimal 6 karakter',
+    errRegPass2: 'Konfirmasi kata sandi tidak cocok'
+  };
+  Object.entries(defaults).forEach(([id, text]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = text;
+  });
+}
+
+function isValidEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+
+function doRegister() {
+  clearErrors();
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('regPass').value;
+  const pass2 = document.getElementById('regPass2').value;
+  let valid = true;
+
+  if (name.length < 3) { setError('regName', 'errRegName', true); valid = false; }
+  if (!isValidEmail(email)) { setError('regEmail', 'errRegEmail', true); valid = false; }
+  if (pass.length < 6) { setError('regPass', 'errRegPass', true); valid = false; }
+  if (pass !== pass2) { setError('regPass2', 'errRegPass2', true); valid = false; }
+
+  if (!valid) { playTone('error'); showToast('Periksa kembali form Anda'); return; }
+
+  const users = getUsers();
+  if (users.some(u => u.email === email)) {
+    setError('regEmail', 'errRegEmail', true, 'Email sudah terdaftar');
+    playTone('error');
+    showToast('Email sudah terdaftar');
+    return;
+  }
+
+  const newUser = { name, email, pass: hashPass(pass), tanggal: new Date().toISOString() };
+  users.push(newUser);
+  saveUsers(users);
+  playTone('success');
+  showToast('Akun berhasil dibuat ✦');
+  document.getElementById('formRegister').reset();
+  setTimeout(() => { setSession(newUser); enterApp(newUser); }, 600);
+}
+
+function doLogin() {
+  clearErrors();
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPass').value;
+
+  let valid = true;
+  if (!email) { setError('loginEmail', 'errLoginEmail', true); valid = false; }
+  if (!pass) { setError('loginPass', 'errLoginPass', true); valid = false; }
+  if (!valid) { playTone('error'); return; }
+
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.pass === hashPass(pass));
+
+  if (!user) {
+    setError('loginEmail', 'errLoginEmail', true, 'Email atau kata sandi salah');
+    playTone('error');
+    showToast('Email atau kata sandi salah');
+    return;
+  }
+
+  playTone('success');
+  showToast(`Halo ${user.name}, selamat datang kembali ✦`);
+  document.getElementById('formLogin').reset();
+  setSession(user);
+  setTimeout(() => enterApp(user), 500);
+}
+
+function doLogout() {
+  playTone('click');
+  showToast('Anda telah keluar');
+  stopMusic();
+  setTimeout(() => {
+    clearSession();
+    currentUser = null;
+    lastPersen = 0;
+    currentCalDate = new Date();
+    selectedDate = new Date();
+    document.getElementById('app').classList.remove('show');
+    const landing = document.getElementById('landing');
+    landing.classList.remove('hidden');
+    landing.style.display = 'flex';
+    landing.style.animation = 'none';
+    void landing.offsetWidth;
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    document.getElementById('formLogin').reset();
+    document.getElementById('formRegister').reset();
+    switchAuth('login');
+  }, 500);
+}
+
+function fillUserData(user) {
+  currentUser = user;
+  lastPersen = 0;
+  currentCalDate = new Date();
+  selectedDate = new Date();
+
+  const uName = document.getElementById('userName'); if (uName) uName.textContent = user.name;
+  const uAvatar = document.getElementById('userAvatar'); if (uAvatar) uAvatar.textContent = user.name.charAt(0).toUpperCase();
+  const wName = document.getElementById('welcomeName'); if (wName) wName.textContent = user.name.split(' ')[0];
+
+  const pNama = document.getElementById('profilNama'); if (pNama) pNama.textContent = user.name;
+  const pEmail = document.getElementById('profilEmail'); if (pEmail) pEmail.textContent = user.email;
+
+  const tgl = new Date(user.tanggal);
+  const pTgl = document.getElementById('profilTanggal');
+  if (pTgl) pTgl.textContent = tgl.toLocaleDateString('id-ID', {
+    day: 'numeric', month: 'long', year: 'numeric'
+  });
+
+  const we = document.getElementById('welcomeEmail'); if (we) we.textContent = user.email;
+  const wi = document.getElementById('welcomeId'); if (wi) wi.textContent = generateMemberId(user.email);
+  const ws = document.getElementById('welcomeSince'); if (ws) {
+    ws.textContent = new Date(user.tanggal).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric' });
+  }
+
+  setTimeout(() => { loadProfileForm(); }, 60);
+  setTimeout(applyAvatarToTopbar, 80);
+}
+
+function enterApp(user) {
+  fillUserData(user);
+  const landing = document.getElementById('landing');
+  const app = document.getElementById('app');
+  landing.classList.add('hidden');
+  app.classList.add('show');
+
+  showPage('beranda');
+  playTone('transition');
+
+  renderCalendar();
+  loadChecklistForDate();
+  renderGlucose();
+  renderReminder();
+  renderEmergency();
+  loadProfileForm();
+  applyAvatarToTopbar();
+
+  setTimeout(() => { initReveals(); refreshRevealsInView(); }, 100);
+  setTimeout(() => showToast(`Selamat datang, ${user.name.split(' ')[0]} ✦`), 900);
+}
+
+/* ============ SESSION ON LOAD ============ */
+window.addEventListener('DOMContentLoaded', () => {
+  const today = new Date();
+  const todayStr = formatDateKey(today);
+  const gd = document.getElementById('glucDate'); if (gd) gd.value = todayStr;
+  const rd = document.getElementById('remDate'); if (rd) rd.value = todayStr;
+  const gt = document.getElementById('glucTime'); if (gt) {
+    gt.value = String(today.getHours()).padStart(2,'0') + ':' + String(today.getMinutes()).padStart(2,'0');
+  }
+  const rt = document.getElementById('remTime'); if (rt) rt.value = '08:00';
+
+  const session = getSession();
+  if (session) {
+    fillUserData(session);
+    const landing = document.getElementById('landing');
+    landing.classList.add('hidden');
+    landing.style.animation = 'none';
+    landing.style.display = 'none';
+    const app = document.getElementById('app');
+    app.classList.add('show');
+    app.style.opacity = '1';
+    setTimeout(() => { initReveals(); refreshRevealsInView(); }, 100);
+    setTimeout(() => showToast(`Selamat datang, ${session.name.split(' ')[0]} ✦`), 400);
+  } else {
+    setTimeout(() => { initReveals(); refreshRevealsInView(); }, 100);
+  }
+
+  buildChecklistItems();
+  buildQuiz();
+  initCalendar();
+  initAvatarUpload();
+  initGlucoseForm();
+  initReveals();
+  startReminderWatcher();
+
+  if (session) {
+    loadProfileForm();
+    renderGlucose();
+    renderReminder();
+    renderEmergency();
+  }
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.auth-card')) clearErrors();
+  });
+});
+
+/* ============ NAVIGASI ============ */
+function showPage(id, el) {
+  const pages = document.querySelectorAll('.page');
+  pages.forEach(p => { p.classList.remove('active'); p.style.animation = 'none'; });
+
+  const target = document.getElementById(id);
+  if (target) { void target.offsetWidth; target.classList.add('active'); }
+
+  document.querySelectorAll('nav.mainnav a').forEach(a => a.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else {
+    const link = document.querySelector(`nav.mainnav a[onclick*="'${id}'"]`);
+    if (link) link.classList.add('active');
+  }
+
+  const hero = document.getElementById('hero');
+  if (hero) hero.style.display = (id === 'beranda') ? 'block' : 'none';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => { initReveals(); refreshRevealsInView(); }, 100);
+  return false;
+}
+
+/* =========================================================
+   KALENDER & CHECKLIST
+   ========================================================= */
+const itemChecklist = [
+  "Saya sudah kontrol sesuai jadwal",
+  "Saya minum obat teratur",
+  "Saya cek gula darah sesuai anjuran",
+  "Saya periksa kaki setiap hari",
+  "Saya cek tekanan darah",
+  "Saya tidak melewatkan jadwal laboratorium",
+  "Saya bertanya ke tenaga kesehatan jika ada keluhan"
+];
+
+const BULAN = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const HARI = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+
+function formatDateKey(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
+/* TZ-safe parser: "2025-01-15" -> Date lokal Jan 15 */
+function parseLocalDate(str) {
+  if (!str) return new Date();
+  const parts = String(str).split('-');
+  if (parts.length !== 3) return new Date(str);
+  return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+}
+
+function getChecklistData() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_checklist')) || '{}'); } catch { return {}; }
+}
+function saveChecklistData(d) {
+  localStorage.setItem(userKey('diamate_checklist'), JSON.stringify(d));
+}
+function getDiaryNotes() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_diary_notes')) || '{}'); } catch { return {}; }
+}
+function saveDiaryNotes(d) {
+  localStorage.setItem(userKey('diamate_diary_notes'), JSON.stringify(d));
+}
+
+function renderCalendar() {
+  const calGrid = document.getElementById('calGrid');
+  const calTitle = document.getElementById('calTitle');
+  if (!calGrid || !calTitle) return;
+
+  const y = currentCalDate.getFullYear();
+  const m = currentCalDate.getMonth();
+  calTitle.textContent = `${BULAN[m]} ${y}`;
+
+  calGrid.innerHTML = '';
+
+  const firstDay = new Date(y, m, 1).getDay();
+  const offset = firstDay === 0 ? 6 : firstDay - 1;
+  const daysInMonth = new Date(y, m + 1, 0).getDate();
+  const daysInPrev = new Date(y, m, 0).getDate();
+
+  const todayKey = formatDateKey(new Date());
+  const selectedKey = formatDateKey(selectedDate);
+  const data = getChecklistData();
+  const notes = getDiaryNotes();
+  const totalItems = itemChecklist.length;
+
+  for (let i = offset - 1; i >= 0; i--) {
+    const d = document.createElement('div');
+    d.className = 'cal-day other-month';
+    d.textContent = daysInPrev - i;
+    calGrid.appendChild(d);
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day';
+    const key = `${y}-${String(m + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    d.textContent = day;
+    d.dataset.date = key;
+
+    if (key === todayKey) d.classList.add('today');
+    if (key === selectedKey) d.classList.add('selected');
+
+    const dayData = data[key] || [];
+    const checkedCount = dayData.filter(Boolean).length;
+    if (checkedCount === totalItems) d.classList.add('done-full');
+    else if (checkedCount > 0) d.classList.add('done-part');
+    if (notes[key] && notes[key].trim()) d.classList.add('has-note');
+
+    d.addEventListener('click', () => {
+      selectedDate = new Date(y, m, day);
+      playTone('click');
+      renderCalendar();
+      loadChecklistForDate();
+    });
+
+    calGrid.appendChild(d);
+  }
+
+  const totalCells = offset + daysInMonth;
+  const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+  for (let i = 1; i <= remaining; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-day other-month';
+    d.textContent = i;
+    calGrid.appendChild(d);
+  }
+}
+
+function loadChecklistForDate() {
+  const key = formatDateKey(selectedDate);
+  const data = getChecklistData();
+  const dayData = data[key] || [];
+
+  itemChecklist.forEach((_, i) => {
+    const cb = document.getElementById('chk' + i);
+    if (!cb) return;
+    cb.checked = !!dayData[i];
+    const label = cb.closest('.check-item');
+    if (label) label.classList.toggle('checked', cb.checked);
+  });
+
+  const notes = getDiaryNotes();
+  const noteEl = document.getElementById('diaryNote');
+  if (noteEl) noteEl.value = notes[key] || '';
+
+  updateDateLabel();
+  updateProgress();
+}
+
+function updateDateLabel() {
+  const el = document.getElementById('checklistDateLabel');
+  if (!el) return;
+  const d = selectedDate;
+  el.textContent = `✦ ${HARI[d.getDay()]}, ${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+function buildChecklistItems() {
+  const wadah = document.getElementById('daftarChecklist');
+  if (!wadah) return;
+  if (document.getElementById('chk0')) return;
+  wadah.innerHTML = '';
+  itemChecklist.forEach((t, i) => {
+    const label = document.createElement('label');
+    label.className = 'check-item';
+    label.htmlFor = 'chk' + i;
+    const cb = document.createElement('input');
+    cb.type = 'checkbox'; cb.id = 'chk' + i;
+    const span = document.createElement('span');
+    span.textContent = t;
+    label.appendChild(cb); label.appendChild(span);
+    wadah.appendChild(label);
+
+    cb.addEventListener('change', () => {
+      cb.style.animation = 'none';
+      void cb.offsetWidth;
+      cb.style.animation = 'checkPop .4s cubic-bezier(.34,1.56,.64,1)';
+      playTone(cb.checked ? 'toggle' : 'click');
+
+      const key = formatDateKey(selectedDate);
+      const data = getChecklistData();
+      const arr = (data[key] || new Array(itemChecklist.length).fill(false));
+      arr[i] = cb.checked;
+      data[key] = arr;
+      saveChecklistData(data);
+
+      label.classList.toggle('checked', cb.checked);
+      renderCalendar();
+      updateProgress();
+    });
+  });
+}
+
+function saveDiaryNote() {
+  const noteEl = document.getElementById('diaryNote');
+  if (!noteEl) return;
+  const key = formatDateKey(selectedDate);
+  const notes = getDiaryNotes();
+  const val = noteEl.value.trim();
+  if (val) notes[key] = val;
+  else delete notes[key];
+  saveDiaryNotes(notes);
+  renderCalendar();
+  playTone('success');
+  showToast(val ? 'Catatan tersimpan ✦' : 'Catatan dihapus');
+}
+
+function initCalendar() {
+  const prev = document.getElementById('calPrev');
+  const next = document.getElementById('calNext');
+  if (prev) prev.addEventListener('click', () => {
+    currentCalDate = new Date(currentCalDate.getFullYear(), currentCalDate.getMonth() - 1, 1);
+    playTone('click');
+    renderCalendar();
+  });
+  if (next) next.addEventListener('click', () => {
+    currentCalDate = new Date(currentCalDate.getFullYear(), currentCalDate.getMonth() + 1, 1);
+    playTone('click');
+    renderCalendar();
+  });
+  renderCalendar();
+  loadChecklistForDate();
+}
+
+function animateNumber(el, from, to, duration) {
+  if (!el) return;
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(from + (to - from) * eased) + '%';
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function updateProgress() {
+  const total = itemChecklist.length;
+  let terisi = 0;
+  for (let i = 0; i < total; i++) {
+    const cb = document.getElementById('chk' + i);
+    if (cb && cb.checked) terisi++;
+  }
+  const persen = Math.round((terisi / total) * 100);
+  const progressEl = document.getElementById('progress');
+  if (progressEl) {
+    progressEl.textContent =
+      `Progres tanggal ini: ${terisi}/${total} (${persen}%)` + (persen === 100 ? " — Selesai ✦" : "");
+  }
+  const fill = document.getElementById('progressFill');
+  if (fill) fill.style.width = persen + '%';
+
+  const angkaEl = document.getElementById('angkaProgres');
+  if (angkaEl) {
+    animateNumber(angkaEl, lastPersen, persen, 500);
+    angkaEl.classList.add('bump');
+    setTimeout(() => angkaEl.classList.remove('bump'), 400);
+  }
+  if (persen === 100 && lastPersen !== 100) {
+    playTone('success');
+    showToast('Checklist tanggal ini selesai. Luar biasa ✦');
+  }
+  lastPersen = persen;
+}
+
+/* =========================================================
+   GLUCOSE TRACKER
+   ========================================================= */
+function getGlucoseData() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_glucose')) || '[]'); } catch { return []; }
+}
+function saveGlucoseData(d) {
+  localStorage.setItem(userKey('diamate_glucose'), JSON.stringify(d));
+}
+
+function glucoseCategory(v) {
+  if (v < 70) return { cls: 'badge-low', label: 'Rendah' };
+  if (v < 100) return { cls: 'badge-normal', label: 'Normal' };
+  if (v < 126) return { cls: 'badge-high', label: 'Pra-DM' };
+  if (v < 200) return { cls: 'badge-high', label: 'Tinggi' };
+  return { cls: 'badge-vhigh', label: 'Sangat Tinggi' };
+}
+
+function initGlucoseForm() {
+  const d = document.getElementById('glucDate');
+  if (d && !d.value) d.value = formatDateKey(new Date());
+  const t = document.getElementById('glucTime');
+  if (t && !t.value) {
+    const now = new Date();
+    t.value = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+  }
+}
+
+function addGlucoseEntry() {
+  const dateVal = document.getElementById('glucDate').value;
+  const timeVal = document.getElementById('glucTime').value;
+  const valRaw = document.getElementById('glucVal').value;
+  const noteVal = document.getElementById('glucNote').value.trim();
+
+  if (!dateVal) { playTone('error'); showToast('Tanggal belum diisi'); return; }
+  const val = parseFloat(valRaw);
+  if (isNaN(val) || val < 20 || val > 600) {
+    playTone('error'); showToast('Kadar gula darah tidak valid (20–600 mg/dL)'); return;
+  }
+
+  const data = getGlucoseData();
+  data.push({
+    id: Date.now() + Math.random().toString(36).slice(2, 7),
+    date: dateVal, time: timeVal || '--:--',
+    value: val, note: noteVal, ts: Date.now()
+  });
+  data.sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time));
+  saveGlucoseData(data);
+
+  document.getElementById('glucVal').value = '';
+  document.getElementById('glucNote').value = '';
+  playTone('success');
+  showToast('Catatan gula darah tersimpan ✦');
+  renderGlucose();
+}
+
+function deleteGlucoseEntry(id) {
+  const data = getGlucoseData().filter(x => x.id !== id);
+  saveGlucoseData(data);
+  playTone('click');
+  showToast('Catatan dihapus');
+  renderGlucose();
+}
+
+function clearGlucoseEntries() {
+  if (!confirm('Hapus semua catatan gula darah Anda?')) return;
+  saveGlucoseData([]);
+  playTone('click');
+  showToast('Semua catatan dihapus');
+  renderGlucose();
+}
+
+function renderGlucose() {
+  const list = document.getElementById('glucoseList');
+  const statsEl = document.getElementById('glucoseStats');
+  if (!list || !statsEl) return;
+
+  const data = getGlucoseData();
+
+  if (!data.length) {
+    statsEl.innerHTML = '';
+    list.innerHTML = '<div class="empty-state">Belum ada catatan gula darah. Mulai catat hari ini ✦</div>';
+    return;
+  }
+
+  const values = data.map(x => x.value);
+  const avg = Math.round(values.reduce((a,b) => a+b, 0) / values.length);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  statsEl.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-label">Rata-rata</div>
+      <div class="stat-value">${avg}</div>
+      <div class="stat-unit">mg/dL</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Terendah</div>
+      <div class="stat-value">${min}</div>
+      <div class="stat-unit">mg/dL</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Tertinggi</div>
+      <div class="stat-value">${max}</div>
+      <div class="stat-unit">mg/dL</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Total Catatan</div>
+      <div class="stat-value">${data.length}</div>
+      <div class="stat-unit">entri</div>
+    </div>
+  `;
+
+  const shown = data.slice(0, 30);
+  list.innerHTML = shown.map(x => {
+    const cat = glucoseCategory(x.value);
+    const d = parseLocalDate(x.date);
+    const tanggal = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    return `
+      <div class="entry-item">
+        <div class="entry-value">${x.value}</div>
+        <div class="entry-main">
+          <div class="entry-title">
+            <span class="entry-badge ${cat.cls}">${cat.label}</span>
+          </div>
+          <div class="entry-meta">${tanggal} · ${x.time}${x.note ? ' · ' + escapeHtml(x.note) : ''}</div>
+        </div>
+        <button class="delete-btn" onclick="deleteGlucoseEntry('${x.id}')" title="Hapus">×</button>
+      </div>
+    `;
+  }).join('');
+}
+
+/* =========================================================
+   REMINDER
+   ========================================================= */
+function getReminders() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_reminders')) || '[]'); } catch { return []; }
+}
+function saveReminders(d) {
+  localStorage.setItem(userKey('diamate_reminders'), JSON.stringify(d));
+}
+
+function addReminder() {
+  const title = document.getElementById('remTitle').value.trim();
+  const date = document.getElementById('remDate').value;
+  const time = document.getElementById('remTime').value;
+
+  if (!title) { playTone('error'); showToast('Judul pengingat belum diisi'); return; }
+  if (!date || !time) { playTone('error'); showToast('Tanggal dan waktu harus diisi'); return; }
+
+  const list = getReminders();
+  list.push({
+    id: Date.now() + Math.random().toString(36).slice(2, 7),
+    title, date, time, notified: false
+  });
+  list.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  saveReminders(list);
+
+  document.getElementById('remTitle').value = '';
+  playTone('success');
+  showToast('Pengingat ditambahkan ✦');
+  renderReminder();
+}
+
+function deleteReminder(id) {
+  saveReminders(getReminders().filter(x => x.id !== id));
+  playTone('click');
+  showToast('Pengingat dihapus');
+  renderReminder();
+}
+
+function renderReminder() {
+  const list = document.getElementById('reminderList');
+  if (!list) return;
+  const data = getReminders();
+  if (!data.length) {
+    list.innerHTML = '<div class="empty-state">Belum ada pengingat. Tambahkan di atas ✦</div>';
+    return;
+  }
+  const now = new Date();
+  const nowKey = formatDateKey(now) + 'T' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+  list.innerHTML = data.map(x => {
+    const key = x.date + 'T' + x.time;
+    const due = key <= nowKey;
+    const d = parseLocalDate(x.date);
+    const tanggal = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+    return `
+      <div class="entry-item ${due ? 'due' : ''}">
+        <div class="entry-main">
+          <div class="entry-title">${escapeHtml(x.title)}</div>
+          <div class="entry-meta">${tanggal} · pukul ${x.time}</div>
+        </div>
+        ${due ? '<span class="entry-badge badge-due">Jatuh Tempo</span>' : ''}
+        <button class="delete-btn" onclick="deleteReminder('${x.id}')" title="Hapus">×</button>
+      </div>
+    `;
+  }).join('');
+}
+
+function startReminderWatcher() {
+  setInterval(() => {
+    if (!currentUser) return;
+    const now = new Date();
+    const nowKey = formatDateKey(now) + 'T' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+    const list = getReminders();
+    let changed = false;
+    list.forEach(x => {
+      const key = x.date + 'T' + x.time;
+      if (!x.notified && key <= nowKey) {
+        x.notified = true;
+        changed = true;
+        showToast(`⏰ Pengingat: ${x.title}`, 4000);
+        playTone('success');
+      }
+    });
+    if (changed) { saveReminders(list); renderReminder(); }
+  }, 60000);
+}
+
+/* =========================================================
+   EMERGENCY CONTACTS
+   ========================================================= */
+function getEmergency() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_emergency')) || '[]'); } catch { return []; }
+}
+function saveEmergency(d) {
+  localStorage.setItem(userKey('diamate_emergency'), JSON.stringify(d));
+}
+
+function addEmergencyContact() {
+  const name = document.getElementById('emgName').value.trim();
+  const phone = document.getElementById('emgPhone').value.trim();
+  const rel = document.getElementById('emgRel').value.trim();
+
+  if (!name) { playTone('error'); showToast('Nama kontak belum diisi'); return; }
+  if (!phone) { playTone('error'); showToast('Nomor telepon belum diisi'); return; }
+
+  const list = getEmergency();
+  list.push({
+    id: Date.now() + Math.random().toString(36).slice(2, 7),
+    name, phone, rel
+  });
+  saveEmergency(list);
+
+  document.getElementById('emgName').value = '';
+  document.getElementById('emgPhone').value = '';
+  document.getElementById('emgRel').value = '';
+  playTone('success');
+  showToast('Kontak darurat tersimpan ✦');
+  renderEmergency();
+}
+
+function deleteEmergency(id) {
+  saveEmergency(getEmergency().filter(x => x.id !== id));
+  playTone('click');
+  showToast('Kontak dihapus');
+  renderEmergency();
+}
+
+function renderEmergency() {
+  const list = document.getElementById('emergencyList');
+  if (!list) return;
+  const data = getEmergency();
+  if (!data.length) {
+    list.innerHTML = '<div class="empty-state">Belum ada kontak darurat. Tambahkan di atas ✦</div>';
+    return;
+  }
+  list.innerHTML = data.map(x => `
+    <div class="entry-item">
+      <div class="entry-main">
+        <div class="entry-title">${escapeHtml(x.name)}</div>
+        <div class="entry-meta">${escapeHtml(x.rel || 'Kontak')} · <a href="tel:${escapeHtml(x.phone)}" style="color:var(--purple-dark);font-weight:600;">${escapeHtml(x.phone)}</a></div>
+      </div>
+      <button class="delete-btn" onclick="deleteEmergency('${x.id}')" title="Hapus">×</button>
+    </div>
+  `).join('');
+}
+
+/* =========================================================
+   KUIS
+   ========================================================= */
+const soal = [
+  { q: "Berapa frekuensi pemeriksaan HbA1c yang dianjurkan?",
+    opsi: ["Setiap minggu", "Setiap 3–6 bulan", "Setiap 5 tahun", "Tidak perlu"], benar: 1 },
+  { q: "Apa yang harus dibawa saat kontrol?",
+    opsi: ["Catatan gula darah dan obat", "Hanya kartu berobat", "Tidak perlu apa-apa", "Makanan berat"], benar: 0 },
+  { q: "Pemeriksaan mata dianjurkan minimal…",
+    opsi: ["1x per tahun", "1x per bulan", "1x per 5 tahun", "Tidak perlu"], benar: 0 },
+  { q: "Jika lupa minum obat, sebaiknya…",
+    opsi: ["Minum 2x dosis", "Berhenti minum obat", "Konsultasi ke tenaga kesehatan", "Diamkan saja"], benar: 2 },
+  { q: "Tanda bahaya yang perlu segera ke faskes adalah…",
+    opsi: ["Luka kaki tidak sembuh", "Gula darah stabil", "Berat badan ideal", "Tidak ada keluhan"], benar: 0 }
+];
+
+function buildQuiz() {
+  const formKuis = document.getElementById('formKuis');
+  if (!formKuis) return;
+  if (formKuis.querySelector('.quiz-q')) return;
+  formKuis.innerHTML = '';
+  soal.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-q';
+    let html = `<p>${i + 1}. ${s.q}</p>`;
+    s.opsi.forEach((o, j) => {
+      html += `<label id="q${i}-o${j}"><input type="radio" name="q${i}" value="${j}"> <span>${o}</span></label>`;
+    });
+    div.innerHTML = html;
+    formKuis.appendChild(div);
+    div.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        s.opsi.forEach((_, j) => {
+          const el = document.getElementById(`q${i}-o${j}`);
+          if (el) el.classList.remove('correct','wrong');
+        });
+        playTone('click');
+      });
+    });
+  });
+}
+
+function periksaKuis() {
+  let skor = 0;
+  let unanswered = 0;
+  soal.forEach((s, i) => {
+    const pilihan = document.querySelector(`input[name="q${i}"]:checked`);
+    s.opsi.forEach((_, j) => {
+      const el = document.getElementById(`q${i}-o${j}`);
+      if (el) el.classList.remove('correct','wrong');
+    });
+    const benarEl = document.getElementById(`q${i}-o${s.benar}`);
+    if (benarEl) benarEl.classList.add('correct');
+    if (pilihan) {
+      if (parseInt(pilihan.value) === s.benar) skor++;
+      else {
+        const wrongEl = document.getElementById(`q${i}-o${pilihan.value}`);
+        if (wrongEl) wrongEl.classList.add('wrong');
+      }
+    } else {
+      unanswered++;
+    }
+  });
+
+  const hasil = document.getElementById('hasil');
+  if (!hasil) return;
+  const nilai = Math.round((skor / soal.length) * 100);
+  const pesan = nilai >= 80 ? "Pemahaman Anda sangat baik." :
+                nilai >= 60 ? "Bagus. Pelajari kembali materi untuk hasil lebih baik." :
+                              "Ayo baca materi lagi, Anda pasti bisa.";
+  const warning = unanswered > 0 ? `<br><span style="color: var(--pink-dark); font-size:.85rem;">Ada ${unanswered} soal belum dijawab.</span>` : '';
+  hasil.innerHTML = `Skor Anda: <b>${skor}/${soal.length}</b> (Nilai: ${nilai})${warning}<br><span style="color: var(--ink-soft); font-weight:400;">${pesan}</span>`;
+  hasil.classList.remove('show');
+  void hasil.offsetWidth;
+  hasil.classList.add('show');
+  playTone(skor === soal.length ? 'success' : 'click');
+  showToast(skor === soal.length ? 'Sempurna, nilai 100 ✦' : `Skor: ${skor}/${soal.length}`);
+  setTimeout(() => { hasil.scrollIntoView({ behavior:'smooth', block:'center' }); }, 150);
+}
+
+function resetKuis() {
+  document.querySelectorAll('#formKuis input[type="radio"]').forEach(i => i.checked = false);
+  document.querySelectorAll('#formKuis .correct, #formKuis .wrong').forEach(el => {
+    el.classList.remove('correct','wrong');
+  });
+  const hasil = document.getElementById('hasil');
+  if (hasil) {
+    hasil.classList.remove('show');
+    hasil.innerHTML = '';
+  }
+  playTone('click');
+  showToast('Kuis direset');
+}
+
+/* =========================================================
+   PROFIL + FOTO + ID CARD
+   ========================================================= */
+function getProfileData() {
+  try { return JSON.parse(localStorage.getItem(userKey('diamate_profile')) || '{}'); } catch { return {}; }
+}
+function saveProfileData(d) {
+  localStorage.setItem(userKey('diamate_profile'), JSON.stringify(d));
+}
+function getAvatar() {
+  return localStorage.getItem(userKey('diamate_avatar')) || '';
+}
+function saveAvatar(b64) {
+  try {
+    if (b64) localStorage.setItem(userKey('diamate_avatar'), b64);
+    else localStorage.removeItem(userKey('diamate_avatar'));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function generateMemberId(email) {
+  let h = 0;
+  for (let i = 0; i < email.length; i++) {
+    h = ((h << 5) - h) + email.charCodeAt(i);
+    h |= 0;
+  }
+  const num = Math.abs(h).toString().slice(0, 6).padStart(6, '0');
+  return 'DM-' + num.slice(0, 3) + '-' + num.slice(3, 6);
+}
+
+function loadProfileForm() {
+  if (!currentUser) return;
+  const p = getProfileData();
+  const nick = document.getElementById('profNickname'); if (nick) nick.value = p.nickname || '';
+  const blood = document.getElementById('profBlood'); if (blood) blood.value = p.blood || '';
+  const birth = document.getElementById('profBirth'); if (birth) birth.value = p.birth || '';
+  const insulin = document.getElementById('profInsulin'); if (insulin) insulin.value = p.insulin || '';
+  const notes = document.getElementById('profNotes'); if (notes) notes.value = p.notes || '';
+  applyAvatarToUI();
+  renderIdCard();
+}
+
+function applyAvatarToUI() {
+  const avatar = getAvatar();
+  const preview = document.getElementById('profileAvatarPreview');
+  if (preview) {
+    if (avatar) preview.innerHTML = `<img src="${avatar}" alt="avatar">`;
+    else preview.innerHTML = '<span class="avatar-placeholder">Foto</span>';
+  }
+  const cardImg = document.getElementById('idCardImg');
+  const cardEmpty = document.getElementById('idCardPhotoEmpty');
+  if (cardImg && cardEmpty) {
+    if (avatar) {
+      cardImg.src = avatar;
+      cardImg.style.display = 'block';
+      cardEmpty.style.display = 'none';
+    } else {
+      cardImg.style.display = 'none';
+      cardEmpty.style.display = 'block';
+    }
+  }
+  applyAvatarToTopbar();
+}
+
+function applyAvatarToTopbar() {
+  const avatar = getAvatar();
+  const el = document.getElementById('userAvatar');
+  if (!el) return;
+  if (avatar) {
+    el.textContent = '';
+    el.style.backgroundImage = `url('${avatar}')`;
+  } else {
+    el.style.backgroundImage = '';
+    const name = currentUser ? currentUser.name : 'U';
+    el.textContent = name.charAt(0).toUpperCase();
+  }
+}
+
+function renderIdCard() {
+  if (!currentUser) return;
+  const p = getProfileData();
+  const fullName = currentUser.name || '—';
+  const nick = p.nickname ? ` (${p.nickname})` : '';
+  const memberId = generateMemberId(currentUser.email);
+
+  const elName = document.getElementById('idCardName');
+  const elId = document.getElementById('idCardId');
+  const elIdno = document.getElementById('idCardIdno');
+  const elBlood = document.getElementById('idCardBlood');
+  const elSince = document.getElementById('idCardSince');
+
+  if (elName) elName.textContent = fullName + nick;
+  if (elId) elId.textContent = memberId;
+  if (elIdno) elIdno.textContent = memberId + '-DM';
+  if (elBlood) elBlood.textContent = p.blood || '—';
+  if (elSince) {
+    const d = new Date(currentUser.tanggal);
+    elSince.textContent = d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
+  }
+}
+
+function saveProfile() {
+  if (!currentUser) return;
+  const p = {
+    nickname: document.getElementById('profNickname').value.trim(),
+    blood: document.getElementById('profBlood').value,
+    birth: document.getElementById('profBirth').value,
+    insulin: document.getElementById('profInsulin').value.trim(),
+    notes: document.getElementById('profNotes').value.trim()
+  };
+  saveProfileData(p);
+  renderIdCard();
+  playTone('success');
+  showToast('Profil tersimpan ✦');
+}
+
+function removeAvatar() {
+  if (!getAvatar()) { playTone('error'); showToast('Belum ada foto'); return; }
+  if (!confirm('Hapus foto profil?')) return;
+  saveAvatar('');
+  applyAvatarToUI();
+  playTone('click');
+  showToast('Foto dihapus');
+}
+
+function initAvatarUpload() {
+  const input = document.getElementById('avatarInput');
+  if (!input || input.dataset.bound === '1') return;
+  input.dataset.bound = '1';
+  input.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      playTone('error'); showToast('File harus berupa gambar'); return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      playTone('error'); showToast('Ukuran maksimal 2 MB'); return;
+    }
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      const img = new Image();
+      img.onload = () => {
+        const MAX = 320;
+        const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+        const w = Math.round(img.width * ratio);
+        const h = Math.round(img.height * ratio);
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const cx = canvas.getContext('2d');
+        cx.drawImage(img, 0, 0, w, h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+        const ok = saveAvatar(dataUrl);
+        if (ok) {
+          applyAvatarToUI();
+          playTone('success');
+          showToast('Foto profil diperbarui ✦');
+        } else {
+          playTone('error');
+          showToast('Gagal menyimpan foto — coba gambar lebih kecil');
+        }
+      };
+      img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  });
+}
+
+/* =========================================================
+   LUPA KATA SANDI (simulasi)
+   ========================================================= */
+function getResetTokens() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_RESET) || '{}'); } catch { return {}; }
+}
+function saveResetTokens(t) {
+  localStorage.setItem(STORAGE_RESET, JSON.stringify(t));
+}
+
+function openForgotModal() {
+  playTone('click');
+  const s1 = document.getElementById('forgotStep1');
+  const s2 = document.getElementById('forgotStep2');
+  const s3 = document.getElementById('forgotStep3');
+  if (!s1 || !s2 || !s3) return;
+  s1.classList.remove('hide');
+  s2.classList.add('hide');
+  s3.classList.add('hide');
+  document.getElementById('forgotEmail').value = '';
+  document.getElementById('forgotCode').value = '';
+  document.getElementById('newPass').value = '';
+  document.getElementById('newPass2').value = '';
+  ['errForgotEmail','errForgotCode','errNewPass','errNewPass2'].forEach(id => {
+    const e = document.getElementById(id);
+    if (e) e.classList.remove('show');
+  });
+  resetState = { email: null, code: null, expiresAt: 0 };
+
+  const modal = document.getElementById('forgotModal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+  setTimeout(() => { const f = document.getElementById('forgotEmail'); if (f) f.focus(); }, 200);
+}
+
+function closeForgotModal() {
+  playTone('click');
+  const modal = document.getElementById('forgotModal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+  resetState = { email: null, code: null, expiresAt: 0 };
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'forgotModal') closeForgotModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const m = document.getElementById('forgotModal');
+    if (m && m.classList.contains('show')) closeForgotModal();
+  }
+});
+
+function generateResetCode() {
+  return String(Math.floor(100000 + Math.random() * 900000));
+}
+
+function handleForgotEmail() {
+  const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+  const errEl = document.getElementById('errForgotEmail');
+  if (!errEl) return;
+
+  errEl.classList.remove('show');
+  errEl.textContent = 'Email tidak ditemukan';
+
+  if (!isValidEmail(email)) {
+    errEl.textContent = 'Format email tidak valid';
+    errEl.classList.add('show');
+    playTone('error');
+    return;
+  }
+
+  const users = getUsers();
+  const user = users.find(u => u.email === email);
+  if (!user) {
+    errEl.textContent = 'Email tidak terdaftar di DiaMate';
+    errEl.classList.add('show');
+    playTone('error');
+    showToast('Email tidak terdaftar');
+    return;
+  }
+
+  const code = generateResetCode();
+  const expiresAt = Date.now() + RESET_EXPIRY_MS;
+  const tokens = getResetTokens();
+  tokens[email] = { code, expiresAt, attempts: 0 };
+  saveResetTokens(tokens);
+
+  resetState.email = email;
+  resetState.code = code;
+  resetState.expiresAt = expiresAt;
+
+  document.getElementById('forgotStep1').classList.add('hide');
+  document.getElementById('forgotStep2').classList.remove('hide');
+  document.getElementById('sentToEmail').textContent = email;
+  document.getElementById('mockCode').textContent = code.split('').join(' ');
+  document.getElementById('forgotCode').value = '';
+
+  playTone('success');
+  showToast('Kode verifikasi terkirim ke email Anda ✦');
+
+  setTimeout(() => { const f = document.getElementById('forgotCode'); if (f) f.focus(); }, 300);
+}
+
+function handleForgotCode() {
+  const code = document.getElementById('forgotCode').value.trim();
+  const errEl = document.getElementById('errForgotCode');
+  if (!errEl) return;
+  errEl.classList.remove('show');
+
+  if (!resetState.email) {
+    errEl.textContent = 'Sesi tidak valid, mulai ulang';
+    errEl.classList.add('show');
+    playTone('error');
+    return;
+  }
+
+  const tokens = getResetTokens();
+  const token = tokens[resetState.email];
+
+  if (!token) {
+    errEl.textContent = 'Kode tidak ditemukan, kirim ulang';
+    errEl.classList.add('show');
+    playTone('error');
+    return;
+  }
+
+  if (Date.now() > token.expiresAt) {
+    errEl.textContent = 'Kode kedaluwarsa, kirim ulang';
+    errEl.classList.add('show');
+    playTone('error');
+    showToast('Kode sudah kedaluwarsa');
+    return;
+  }
+
+  if (code !== token.code) {
+    token.attempts = (token.attempts || 0) + 1;
+    saveResetTokens(tokens);
+    errEl.textContent = `Kode salah (${token.attempts}/5 percobaan)`;
+    errEl.classList.add('show');
+    playTone('error');
+    if (token.attempts >= 5) {
+      delete tokens[resetState.email];
+      saveResetTokens(tokens);
+      errEl.textContent = 'Terlalu banyak percobaan. Kirim ulang kode.';
+      showToast('Terlalu banyak percobaan');
+    }
+    return;
+  }
+
+  document.getElementById('forgotStep2').classList.add('hide');
+  document.getElementById('forgotStep3').classList.remove('hide');
+  document.getElementById('resetForEmail').textContent = resetState.email;
+  playTone('success');
+  showToast('Kode terverifikasi ✦');
+  setTimeout(() => { const f = document.getElementById('newPass'); if (f) f.focus(); }, 300);
+}
+
+function resendForgotCode() {
+  if (!resetState.email) { openForgotModal(); return; }
+  const code = generateResetCode();
+  const expiresAt = Date.now() + RESET_EXPIRY_MS;
+  const tokens = getResetTokens();
+  tokens[resetState.email] = { code, expiresAt, attempts: 0 };
+  saveResetTokens(tokens);
+  resetState.code = code;
+  resetState.expiresAt = expiresAt;
+  document.getElementById('mockCode').textContent = code.split('').join(' ');
+  document.getElementById('forgotCode').value = '';
+  const errEl = document.getElementById('errForgotCode');
+  if (errEl) errEl.classList.remove('show');
+  playTone('success');
+  showToast('Kode baru terkirim ✦');
+}
+
+function handleNewPassword() {
+  const p1 = document.getElementById('newPass').value;
+  const p2 = document.getElementById('newPass2').value;
+  let valid = true;
+
+  ['errNewPass','errNewPass2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('show');
+  });
+
+  if (p1.length < 6) {
+    const el = document.getElementById('errNewPass');
+    if (el) el.classList.add('show');
+    valid = false;
+  }
+  if (p1 !== p2) {
+    const el = document.getElementById('errNewPass2');
+    if (el) el.classList.add('show');
+    valid = false;
+  }
+  if (!valid) { playTone('error'); return; }
+
+  const users = getUsers();
+  const idx = users.findIndex(u => u.email === resetState.email);
+  if (idx === -1) {
+    playTone('error'); showToast('Akun tidak ditemukan');
+    closeForgotModal();
+    return;
+  }
+
+  users[idx].pass = hashPass(p1);
+  saveUsers(users);
+
+  const tokens = getResetTokens();
+  delete tokens[resetState.email];
+  saveResetTokens(tokens);
+
+  playTone('success');
+  showToast('Kata sandi berhasil diperbarui ✦', 3200);
+
+  const emailForLogin = resetState.email;
+  closeForgotModal();
+
+  const loginEmail = document.getElementById('loginEmail');
+  if (loginEmail) {
+    loginEmail.value = emailForLogin || '';
+    setTimeout(() => { const f = document.getElementById('loginPass'); if (f) f.focus(); }, 400);
+  }
+}
+
+/* =========================================================
+   UTIL
+   ========================================================= */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+/* ============ SCROLL: bubble parallax + refresh reveal ============ */
+window.addEventListener('scroll', () => {
+  const hero = document.getElementById('hero');
+  if (hero && hero.style.display !== 'none') {
+    const y = window.scrollY;
+    document.querySelectorAll('.bubble').forEach((b, i) => {
+      const speed = (i + 1) * 0.12;
+      b.style.transform = `translateY(${y * speed}px)`;
+    });
+  }
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(refreshRevealsInView, 120);
+}, { passive: true });
+
+/* ============ HOVER SOUND ============ */
+document.addEventListener('mouseover', (e) => {
+  const el = e.target.closest('button, a, .check-item, .quiz-q label, .cal-day');
+  if (el && !el.dataset.hovered) {
+    el.dataset.hovered = '1';
+    if (Math.random() < 0.4) playTone('hover');
+    setTimeout(() => delete el.dataset.hovered, 300);
+  }
+}, { passive: true });
+</script>
+
+</body>
+</html>
